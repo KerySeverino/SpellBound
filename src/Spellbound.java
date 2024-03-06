@@ -5,9 +5,11 @@ import java.awt.event.*;
 public class Spellbound extends Applet implements Runnable, KeyListener
 {
 
-	Rect r1 = new Rect(710, 200, 300, 500);
-	Rect r2 = new Rect(200, 200, 500, 300);
+	Rect player_hitbox = new Rect(50, 789, 40, 80);
+	AI_control wilddog_hitbox = new AI_control(500, 829, 40, 40);
 	
+	Rect floor = new Rect(0, 870, 1500, 50);
+
 	
 	boolean UP_Pressed = false;
 	boolean DN_Pressed = false;
@@ -31,10 +33,37 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		// Game Loop
 		while(true)
 		{
-			if(UP_Pressed) r1.moveBy( 0, -1);
-			if(DN_Pressed) r1.moveBy( 0, +1);
-			if(LT_Pressed) r1.moveBy(-1,  0);
-			if(RT_Pressed) r1.moveBy(+1,  0);
+			if(UP_Pressed) player_hitbox.moveUP(10);
+			if(DN_Pressed) player_hitbox.moveDN(10);
+			if(LT_Pressed) player_hitbox.moveLT(10);
+			if(RT_Pressed) player_hitbox.moveRT(10);
+			
+			//Prevents the player from going down the screen
+			if( player_hitbox.overlaps(floor))
+			{
+				if( player_hitbox.cameFromAbove(floor))
+				{
+					 player_hitbox.pushbackUpFrom(floor);
+				}
+				
+				if( player_hitbox.cameFromBelow(floor))
+				{
+					 player_hitbox.pushbackDownFrom(floor);
+				}
+
+				if( player_hitbox.cameFromLeftOf(floor))
+				{
+					 player_hitbox.pushbackLeftFrom(floor);
+				}
+				
+				if( player_hitbox.cameFromRightOf(floor))
+				{
+					 player_hitbox.pushbackRightFrom(floor);
+				}
+			}
+				
+			//AI
+			wilddog_hitbox.chase(player_hitbox, 3);
 			
 			repaint();
 			
@@ -51,7 +80,9 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	{		
 		int code = e.getKeyCode();
 		
-		if (code == e.VK_A )  LT_Pressed = true;  
+		if (code == e.VK_W)   UP_Pressed = true;  
+		if (code == e.VK_S)   DN_Pressed = true;  
+		if (code == e.VK_A)   LT_Pressed = true;  
 		if (code == e.VK_D)   RT_Pressed = true;  
 	}
 	
@@ -59,8 +90,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	{
 		int code = e.getKeyCode();
 
-		if (code == e.VK_A )   LT_Pressed = false;  
-		if (code == e.VK_D)    RT_Pressed = false;  
+		if (code == e.VK_W)   UP_Pressed = false;  
+		if (code == e.VK_S)   DN_Pressed = false; 
+		if (code == e.VK_A)   LT_Pressed = false;  
+		if (code == e.VK_D)   RT_Pressed = false;  
 	}
 	
 	
@@ -69,12 +102,26 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	public void paint(Graphics pen)
 	{
 
-		pen.setColor(Color.BLACK);
-		
-		if(r1.overlaps(r2))  pen.setColor(Color.RED);
-		
-		r1.draw(pen);
-		r2.draw(pen);
+		 // Sets the color to green for the player_hitbox
+	    pen.setColor(Color.GREEN);
+	    player_hitbox.draw(pen);
+	    
+	    // Sets the colors for other elements to Default
+	    pen.setColor(Color.BLACK);
+	    floor.draw(pen);
+	    
+	    // Sets the colors for AI_enemies_hitbox
+	    pen.setColor(Color.RED);
+	    wilddog_hitbox.draw(pen);
+
+	    // Sets the color to red if the player_hitbox overlaps with the floor
+	    if (player_hitbox.overlaps(wilddog_hitbox)) {
+	        pen.setColor(Color.RED);
+	        player_hitbox.draw(pen);
+	    }
+
+	   
+	    
 	}
 	
 }
