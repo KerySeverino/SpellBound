@@ -1,11 +1,3 @@
-Experience the beginning of the Apocalypse! 
+Dive into the enchanting world of SpellBound, where you will embark on a journey to become a powerful wizard by mastering the arts of spellcasting. Immerse yourself in a realm brimming with magic, where your unique elemental affinity sets you on a path to greatness!
 
-As chaos ensues in an apocalyptic world, you control a survivor who's desperate to navigate through obstacles and survive against all odds. Are you up for the challenge? 
-
-Features in development: 
-Controls
-Gameplay
-Collision Detection
-Animation
-Environment
-AI Enemies
+More to be determine...
