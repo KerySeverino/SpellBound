@@ -8,8 +8,8 @@ public class AI_control extends Rect{
 	{
 		if(isLeftOf(r))   moveRT(dx); 
 		if(isRightOf(r))  moveLT(dx); 
-		if(isAbove(r))    moveDN(dx); 
-		if(isBelow(r))    moveUP(dx); 
+		//if(isAbove(r))    moveDN(dx); 
+		//if(isBelow(r))    moveUP(dx); 
 	}
 	
 	public void evade(Rect r, int dx)
