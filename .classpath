@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/enemies/venustrap/idle"/>
 	<classpathentry kind="src" path="images/wanderer_mage/run"/>
 	<classpathentry kind="src" path="images/wanderer_mage/idle"/>
 	<classpathentry kind="src" path="images/background"/>

@@ -20,6 +20,13 @@ public class AI_control extends Rect{
 		//if(isBelow(r))    moveDN(dx); 
 	}
 	
+	public void track(Rect r) 
+	
+	{
+		x = r.x + 80;
+		y = r.y + 100;
+	}
+	
 	public boolean isLeftOf(Rect r)
 	{
 		return x + w < r.x;

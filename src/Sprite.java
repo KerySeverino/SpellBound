@@ -77,7 +77,7 @@ public class Sprite extends Rect {
 			x += dx;
 			
 			//Debugging check
-			System.out.println("Run");
+			//dSystem.out.println("Run");
 		}
 		
 	
@@ -110,12 +110,12 @@ public class Sprite extends Rect {
 		
 		public void pushbackLeftFrom(Rect r)
 		{
-			x = r.x;
+			x = r.x - 13;
 		}
 		
 		public void pushbackRightFrom(Rect r)
 		{
-			x = r.x;
+			x = r.x - 13;
 		}
 		
 		public void draw(Graphics pen) 
@@ -129,6 +129,22 @@ public class Sprite extends Rect {
 				moving = false;
 			}
 			
+		}
+
+
+		public void chase(Sprite r, int dx) {
+			if(isLeftOf(r))   moveRT(dx); 
+			if(isRightOf(r))  moveLT(dx); 
+		}
+		
+		public boolean isLeftOf(Rect r)
+		{
+			return x + w < r.x;
+		}
+		
+		public boolean isRightOf(Rect r)
+		{
+			return r.x + r.w < x;
 		}
 		
 }

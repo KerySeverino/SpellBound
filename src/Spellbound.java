@@ -9,13 +9,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
 	
 	//PLAYER
-	String[] pose = {"Lidle", "Ridle", "Lwalk", "Rwalk", "Lrun", "Rrun"};
+	String[] player_pose = {"Lidle", "Ridle", "Lwalk", "Rwalk", "Lrun", "Rrun"};
 	
-	Rect player_hitbox = new Rect(115, 753, 40, 90);
-	Sprite player = new Sprite("wm", pose, 50, 654, 7, 8);
+	Hitbox player_hitbox = new Hitbox(100, 783, 40, 90);
+	Sprite player = new Sprite("wm", player_pose, 50, 654, 7, 8);
 	
 	//AI Enemy
-	AI_control venustrap_hitbox = new AI_control(500, 804, 40, 40);
+	String[] venustrap_pose = {"Lidle", "Ridle", "Lwalk", "Rwalk"};
+	
+	AI_control venustrap_hitbox = new AI_control(580, 753, 90, 90);
+	Sprite venustrap = new Sprite("venustrap", venustrap_pose, 500, 654, 7, 8);
 	
 	//Boundaries
 	Rect top_wall = new Rect(0, -50, 1500, 50);
@@ -41,31 +44,26 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		{
 //			if(UP_Pressed)
 //			{
-//				player_hitbox.moveUP(2);
 //				player.moveUP(2);
 //			}
 
 			//Walking
 			if(LT_Pressed)
 			{
-				player_hitbox.moveLT(2);
 				player.walkLT(2);
 			}
 			if(RT_Pressed)
 			{
-				player_hitbox.moveRT(2);
 				player.walkRT(2);
 			}
 			
 			//Running
 			if(LT_Pressed && shift_Pressed)
 			{
-				player_hitbox.moveLT(4);
 				player.runLT(4);
 			}
 			if(RT_Pressed && shift_Pressed)
 			{
-				player_hitbox.moveRT(4);
 				player.runRT(4);
 			}
 			
@@ -75,13 +73,11 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			{
 				if( player_hitbox.cameFromLeftOf(left_wall))
 				{
-					 player_hitbox.pushbackLeftFrom(left_wall);
 					 player.pushbackLeftFrom(left_wall);
 				}
 				
 				if( player_hitbox.cameFromRightOf(left_wall))
 				{
-					 player_hitbox.pushbackRightFrom(left_wall);
 					 player.pushbackRightFrom(left_wall);
 				}
 			}
@@ -91,27 +87,30 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			{
 				if( player_hitbox.cameFromAbove(floor))
 				{
-					 player_hitbox.pushbackUpFrom(floor);
+					 player.pushbackUpFrom(floor);
 				}
 				
 				if( player_hitbox.cameFromBelow(floor))
 				{
-					 player_hitbox.pushbackDownFrom(floor);
+					 player.pushbackDownFrom(floor);
 				}
 
 				if( player_hitbox.cameFromLeftOf(floor))
 				{
-					 player_hitbox.pushbackLeftFrom(floor);
+					 player.pushbackLeftFrom(floor);
 				}
 				
 				if( player_hitbox.cameFromRightOf(floor))
 				{
-					 player_hitbox.pushbackRightFrom(floor);
+					 player.pushbackRightFrom(floor);
 				}
 			}
 				
 			//AI
 			//venustrap_hitbox.chase(player_hitbox, 3);
+			venustrap_hitbox.track(venustrap);
+			//venustrap.chase(player, 3);
+			player_hitbox.track(player);
 			
 			repaint();
 			
@@ -141,6 +140,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    pen.drawImage(forest, 0, -280, 1500, 1200, null);
 	   
 	    player.draw(pen);
+	    venustrap.draw(pen);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
