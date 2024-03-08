@@ -9,6 +9,7 @@ public class Sprite extends Rect {
 		boolean lookingLeft = true;
 		
 		
+		
 		public Sprite(String name, String[] pose, int x, int y, int count, int duration) 
 		{
 			super(x, y, 190, 190);
@@ -19,12 +20,12 @@ public class Sprite extends Rect {
 			{
 				animation[i] = new Animation(name + "_" + pose[i], count, duration);
 				//Debugging check
-				//System.out.println(name + "_" + pose[i]);
+				System.out.println(name + "_" + pose[i]);
 			}
 		}
 		
 		
-		public void moveLT(int dx)
+		public void walkLT(int dx)
 		{
 			old_x = x;
 			action = 2;
@@ -37,7 +38,7 @@ public class Sprite extends Rect {
 		}
 		
 
-		public void moveRT(int dx)
+		public void walkRT(int dx)
 		{
 			old_x = x;
 			
@@ -51,17 +52,45 @@ public class Sprite extends Rect {
 			//System.out.println("Right");
 		}
 		
-	
-		public void moveUP(int dy)
+		
+		public void runLT(int dx)
 		{
-			old_y = y;
-			
+			old_x = x;
 			action = 4;
-			moving = true;
 			
-			y -= dy;
+			moving = true;
+			lookingLeft = true;
+			
+			x -= dx;	
+			
 		}
 		
+
+		public void runRT(int dx)
+		{
+			old_x = x;
+			
+			action = 5;
+			moving = true;
+			lookingLeft = false;
+			
+			x += dx;
+			
+			//Debugging check
+			System.out.println("Run");
+		}
+		
+	
+//		public void moveUP(int dy)
+//		{
+//			old_y = y;
+//			
+//			action = 4;
+//			moving = true;
+//			
+//			y -= dy;
+//		}
+//		
 		//Push the character out of terrain
 		public void pushedOutOf(Rect r)
 		{

@@ -37,12 +37,12 @@ public class Rect
 		x += dx;		
 	}
 	
-	public void moveUP(int dy)
-	{
-		old_y = y;
-		
-		y -= dy;
-	}
+//	public void moveUP(int dy)
+//	{
+//		old_y = y;
+//		
+//		y -= dy;
+//	}
 	
 	public void moveDN(int dy)
 	{

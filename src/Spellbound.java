@@ -9,10 +9,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
 	
 	//PLAYER
-	String[] pose = {"Lidle", "Ridle", "Lwalk", "Rwalk"};
+	String[] pose = {"Lidle", "Ridle", "Lwalk", "Rwalk", "Lrun", "Rrun"};
 	
 	Rect player_hitbox = new Rect(115, 753, 40, 90);
-	Sprite player = new Sprite("wm", pose, 50, 654, 7, 10);
+	Sprite player = new Sprite("wm", pose, 50, 654, 7, 8);
 	
 	//AI Enemy
 	AI_control venustrap_hitbox = new AI_control(500, 804, 40, 40);
@@ -26,6 +26,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	boolean UP_Pressed = false;
 	boolean LT_Pressed = false;
 	boolean RT_Pressed = false;
+	boolean shift_Pressed = false;
 	boolean testing_Tool = false;
 	
 	//Paints Image to offScreenImg to reduce flicker
@@ -44,16 +45,30 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 //				player.moveUP(2);
 //			}
 
+			//Walking
 			if(LT_Pressed)
 			{
 				player_hitbox.moveLT(2);
-				player.moveLT(2);
+				player.walkLT(2);
 			}
 			if(RT_Pressed)
 			{
 				player_hitbox.moveRT(2);
-				player.moveRT(2);
+				player.walkRT(2);
 			}
+			
+			//Running
+			if(LT_Pressed && shift_Pressed)
+			{
+				player_hitbox.moveLT(4);
+				player.runLT(4);
+			}
+			if(RT_Pressed && shift_Pressed)
+			{
+				player_hitbox.moveRT(4);
+				player.runRT(4);
+			}
+			
 			
 			//Prevents the player from going left to the screen
 			if( player_hitbox.overlaps(left_wall))
@@ -179,7 +194,8 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		
 		if (code == e.VK_W)   UP_Pressed = true;   
 		if (code == e.VK_A)   LT_Pressed = true;  
-		if (code == e.VK_D)   RT_Pressed = true;  
+		if (code == e.VK_D)   RT_Pressed = true; 
+		if (code == e.VK_SHIFT)  shift_Pressed = true;  
 		
 		
 		//Testing tool shows hitboxes and terrain boundaries
@@ -200,7 +216,8 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 
 		if (code == e.VK_W)   UP_Pressed = false;  
 		if (code == e.VK_A)   LT_Pressed = false;  
-		if (code == e.VK_D)   RT_Pressed = false;  
+		if (code == e.VK_D)   RT_Pressed = false;
+		if (code == e.VK_SHIFT)  shift_Pressed = false;  
 	}
 
 	public void keyTyped(KeyEvent e) {}
