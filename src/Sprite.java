@@ -5,11 +5,13 @@ public class Sprite extends Rect {
 		Animation[] animation;
 		
 		int action = 0;
+		boolean moving = false;
+		boolean lookingLeft = true;
 		
 		
 		public Sprite(String name, String[] pose, int x, int y, int count, int duration) 
 		{
-			super(x, y,148, 148);
+			super(x, y, 190, 190);
 			
 			animation = new Animation[pose.length];
 			
@@ -25,10 +27,13 @@ public class Sprite extends Rect {
 		public void moveLT(int dx)
 		{
 			old_x = x;
+			action = 2;
 			
-			action = 0;
+			moving = true;
+			lookingLeft = true;
 			
 			x -= dx;	
+			
 		}
 		
 
@@ -36,11 +41,13 @@ public class Sprite extends Rect {
 		{
 			old_x = x;
 			
-			action = 1;
+			action = 3;
+			moving = true;
+			lookingLeft = false;
 			
 			x += dx;
 			
-			//Debuggingcheck
+			//Debugging check
 			//System.out.println("Right");
 		}
 		
@@ -49,21 +56,50 @@ public class Sprite extends Rect {
 		{
 			old_y = y;
 			
-			action = 2;
+			action = 4;
+			moving = true;
 			
 			y -= dy;
 		}
 		
-		public void draw(Graphics pen) 
+		//Push the character out of terrain
+		public void pushedOutOf(Rect r)
 		{
-			pen.drawImage(animation[action].nextImage(), x, y, w, h, null);
+			if(cameFromLeftOf(r))   pushbackLeftFrom(r);		
+			if(cameFromRightOf(r))	pushbackRightFrom(r);
 		}
 		
+		public boolean cameFromLeftOf(Rect r)
+		{
+			return old_x + w < r.x;
+		}
 		
-//		public void moveDN(int dy)
-//		{
-//			old_y = y;
-//			
-//			y += dy;
-//		}
+		public boolean cameFromRightOf(Rect r)
+		{
+			return r.x + r.w < old_x;
+		}
+		
+		public void pushbackLeftFrom(Rect r)
+		{
+			x = r.x;
+		}
+		
+		public void pushbackRightFrom(Rect r)
+		{
+			x = r.x;
+		}
+		
+		public void draw(Graphics pen) 
+		{
+			if(!moving && lookingLeft) {
+				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
+			}else if(!moving && !lookingLeft){
+				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
+			}else {
+				pen.drawImage(animation[action].nextImage(), x, y, w, h, null);
+				moving = false;
+			}
+			
+		}
+		
 }

@@ -44,12 +44,12 @@ public class Rect
 		y -= dy;
 	}
 	
-//	public void moveDN(int dy)
-//	{
-//		old_y = y;
-//		
-//		y += dy;
-//	}
+	public void moveDN(int dy)
+	{
+		old_y = y;
+		
+		y += dy;
+	}
 	
 	public void resizeBy(int dw, int dh)
 	{
@@ -114,7 +114,6 @@ public class Rect
 	{
 		y = r.y + r.h + 1;
 	}
-	//Push the character out of terrain
 	
 	
 	public void draw(Graphics pen)
