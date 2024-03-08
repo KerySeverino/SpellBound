@@ -43,12 +43,13 @@ public class Rect
 		
 		y -= dy;
 	}
-	public void moveDN(int dy)
-	{
-		old_y = y;
-		
-		y += dy;
-	}
+	
+//	public void moveDN(int dy)
+//	{
+//		old_y = y;
+//		
+//		y += dy;
+//	}
 	
 	public void resizeBy(int dw, int dh)
 	{

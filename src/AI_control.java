@@ -16,8 +16,8 @@ public class AI_control extends Rect{
 	{
 		if(isLeftOf(r))   moveLT(dx); 
 		if(isRightOf(r))  moveRT(dx); 
-		if(isAbove(r))    moveUP(dx); 
-		if(isBelow(r))    moveDN(dx); 
+		//if(isAbove(r))    moveUP(dx); 
+		//if(isBelow(r))    moveDN(dx); 
 	}
 	
 	public boolean isLeftOf(Rect r)
