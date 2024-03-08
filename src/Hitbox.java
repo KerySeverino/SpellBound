@@ -11,4 +11,5 @@ public class Hitbox extends Rect{
 		y = r.y + 100;
 	}
 	
+	
 }

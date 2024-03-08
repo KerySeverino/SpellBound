@@ -4,11 +4,13 @@ public class Sprite extends Rect {
 
 		Animation[] animation;
 		
-		int action = 0;
-		boolean moving = false;
-		boolean lookingLeft = true;
+		int player_action = 0;
+		boolean player_moving = false;
+		boolean player_lookingLeft = true;
 		
 		
+		int ai_action = 0;
+		boolean chasing = false;
 		
 		public Sprite(String name, String[] pose, int x, int y, int count, int duration) 
 		{
@@ -28,13 +30,12 @@ public class Sprite extends Rect {
 		public void walkLT(int dx)
 		{
 			old_x = x;
-			action = 2;
+			player_action = 2;
 			
-			moving = true;
-			lookingLeft = true;
+			player_moving = true;
+			player_lookingLeft = true;
 			
 			x -= dx;	
-			
 		}
 		
 
@@ -42,9 +43,9 @@ public class Sprite extends Rect {
 		{
 			old_x = x;
 			
-			action = 3;
-			moving = true;
-			lookingLeft = false;
+			player_action = 3;
+			player_moving = true;
+			player_lookingLeft = false;
 			
 			x += dx;
 			
@@ -52,17 +53,15 @@ public class Sprite extends Rect {
 			//System.out.println("Right");
 		}
 		
-		
 		public void runLT(int dx)
 		{
 			old_x = x;
-			action = 4;
+			player_action = 4;
 			
-			moving = true;
-			lookingLeft = true;
+			player_moving = true;
+			player_lookingLeft = true;
 			
 			x -= dx;	
-			
 		}
 		
 
@@ -70,9 +69,9 @@ public class Sprite extends Rect {
 		{
 			old_x = x;
 			
-			action = 5;
-			moving = true;
-			lookingLeft = false;
+			player_action = 5;
+			player_moving = true;
+			player_lookingLeft = false;
 			
 			x += dx;
 			
@@ -120,21 +119,41 @@ public class Sprite extends Rect {
 		
 		public void draw(Graphics pen) 
 		{
-			if(!moving && lookingLeft) {
+			if(!player_moving && player_lookingLeft) {
 				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
-			}else if(!moving && !lookingLeft){
+			}else if(!player_moving && !player_lookingLeft){
 				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
 			}else {
-				pen.drawImage(animation[action].nextImage(), x, y, w, h, null);
-				moving = false;
+				pen.drawImage(animation[player_action].nextImage(), x, y, w, h, null);
+				player_moving = false;
+			}
+			
+		}
+		
+		public void ai_draw(Sprite r, Graphics pen) 
+		{
+			
+			if(chasing && isLeftOf(r)) {
+				pen.drawImage(animation[3].nextImage(), x, y, w, h, null);
+				//System.out.println("Is chasing");
+			}else if (chasing && isRightOf(r)){
+				pen.drawImage(animation[2].nextImage(), x, y, w, h, null);
+			}else {
+				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
 			}
 			
 		}
 
-
 		public void chase(Sprite r, int dx) {
-			if(isLeftOf(r))   moveRT(dx); 
-			if(isRightOf(r))  moveLT(dx); 
+			if(isLeftOf(r)) {
+				chasing = true;
+				moveRT(dx); 
+				
+			}
+			if(isRightOf(r)) {
+				chasing = true;
+				moveLT(dx); 
+			}
 		}
 		
 		public boolean isLeftOf(Rect r)

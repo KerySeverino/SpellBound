@@ -23,7 +23,7 @@ public class AI_control extends Rect{
 	public void track(Rect r) 
 	
 	{
-		x = r.x + 80;
+		x = r.x + 50;
 		y = r.y + 100;
 	}
 	
