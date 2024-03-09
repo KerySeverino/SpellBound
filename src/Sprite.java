@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Sprite extends Rect {
@@ -12,9 +13,9 @@ public class Sprite extends Rect {
 		int ai_action = 0;
 		boolean chasing = false;
 		
-		public Sprite(String name, String[] pose, int x, int y, int count, int duration) 
+		public Sprite(String name, String[] pose, int x, int y, int w, int h, int count, int duration) 
 		{
-			super(x, y, 190, 190);
+			super(x, y, w, h);
 			
 			animation = new Animation[pose.length];
 			
@@ -128,30 +129,38 @@ public class Sprite extends Rect {
 				player_moving = false;
 			}
 			
+//			pen.setColor(Color.GREEN);
+//			pen.drawRect(x, y, w, h);
+			
 		}
 		
-		public void ai_draw(Sprite r, Graphics pen) 
+		public void ai_draw(Hitbox ai, Hitbox player,  Graphics pen) 
 		{
 			
-			if(chasing && isLeftOf(r)) {
+			if (ai.overlaps(player)){
+				pen.drawImage(animation[4].nextImage(), x, y, w, h, null);
+			} else if(isLeftOf(player)) {
 				pen.drawImage(animation[3].nextImage(), x, y, w, h, null);
-				//System.out.println("Is chasing");
-			}else if (chasing && isRightOf(r)){
+			}else if (isRightOf(player)){
 				pen.drawImage(animation[2].nextImage(), x, y, w, h, null);
 			}else {
-				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[ai_action].nextImage(), x, y, w, h, null);
 			}
 			
+//			pen.setColor(Color.RED);
+//			pen.drawRect(x, y, w, h);
 		}
 
 		public void chase(Sprite r, int dx) {
 			if(isLeftOf(r)) {
 				chasing = true;
+				ai_action = 1;
 				moveRT(dx); 
 				
 			}
 			if(isRightOf(r)) {
 				chasing = true;
+				ai_action = 0;
 				moveLT(dx); 
 			}
 		}

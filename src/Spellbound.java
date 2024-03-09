@@ -9,16 +9,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
 	
 	//PLAYER
-	String[] player_pose = {"Lidle", "Ridle", "Lwalk", "Rwalk", "Lrun", "Rrun"};
+	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun"};
 	
-	Hitbox player_hitbox = new Hitbox(100, 783, 40, 90);
-	Sprite player = new Sprite("wm", player_pose, 50, 654, 7, 8);
+	Hitbox player_hitbox = new Hitbox(50, 744, 100, 100);
+	Sprite player = new Sprite("wm", player_pose, 50, 744, 100, 100, 7, 8);
 	
 	//AI Enemy
-	String[] venustrap_pose = {"Lidle", "Ridle", "Lwalk", "Rwalk"};
+	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
 	
-	AI_control venustrap_hitbox = new AI_control(600, 765, 80, 80);
-	Sprite venustrap = new Sprite("venustrap", venustrap_pose, 500, 654, 4, 10);
+	Hitbox venustrap_hitbox = new Hitbox(500, 716, 128, 128);
+	Sprite venustrap = new Sprite("venustrap", venustrap_pose, 500, 716, 128, 128, 4, 10);
 	
 	//Boundaries
 	Rect top_wall = new Rect(0, -50, 1500, 50);
@@ -66,48 +66,47 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			{
 				player.runRT(4);
 			}
-			
-			
-			//Prevents the player from going left to the screen
-			if( player_hitbox.overlaps(left_wall))
-			{
-				if( player_hitbox.cameFromLeftOf(left_wall))
-				{
-					 player.pushbackLeftFrom(left_wall);
-				}
-				
-				if( player_hitbox.cameFromRightOf(left_wall))
-				{
-					 player.pushbackRightFrom(left_wall);
-				}
-			}
-			
-			//Prevents the player from going down the screen
-			if( player_hitbox.overlaps(floor))
-			{
-				if( player_hitbox.cameFromAbove(floor))
-				{
-					 player.pushbackUpFrom(floor);
-				}
-				
-				if( player_hitbox.cameFromBelow(floor))
-				{
-					 player.pushbackDownFrom(floor);
-				}
-
-				if( player_hitbox.cameFromLeftOf(floor))
-				{
-					 player.pushbackLeftFrom(floor);
-				}
-				
-				if( player_hitbox.cameFromRightOf(floor))
-				{
-					 player.pushbackRightFrom(floor);
-				}
-			}
+//			
+//			
+//			//Prevents the player from going left to the screen
+//			if( player.overlaps(left_wall))
+//			{
+//				if( player.cameFromLeftOf(left_wall))
+//				{
+//					 player.pushbackLeftFrom(left_wall);
+//				}
+//				
+//				if( player.cameFromRightOf(left_wall))
+//				{
+//					 player.pushbackRightFrom(left_wall);
+//				}
+//			}
+//			
+//			//Prevents the player from going down the screen
+//			if( player.overlaps(floor))
+//			{
+//				if( player.cameFromAbove(floor))
+//				{
+//					 player.pushbackUpFrom(floor);
+//				}
+//				
+//				if( player.cameFromBelow(floor))
+//				{
+//					 player.pushbackDownFrom(floor);
+//				}
+//
+//				if( player.cameFromLeftOf(floor))
+//				{
+//					 player.pushbackLeftFrom(floor);
+//				}
+//				
+//				if( player.cameFromRightOf(floor))
+//				{
+//					 player.pushbackRightFrom(floor);
+//				}
+//			}
 				
 			//AI
-			//venustrap_hitbox.chase(player_hitbox, 3);
 			venustrap_hitbox.track(venustrap);
 			venustrap.chase(player, 3);
 			player_hitbox.track(player);
@@ -140,7 +139,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    pen.drawImage(forest, 0, -280, 1920, 1200, null);
 	   
 	    player.draw(pen);
-	    venustrap.ai_draw(player, pen);
+	    venustrap.ai_draw(venustrap_hitbox, player_hitbox, pen);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
@@ -160,12 +159,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		    venustrap_hitbox.draw(pen);
 	
 		    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
-		    if (player_hitbox.overlaps(venustrap_hitbox)) 
+		    if (venustrap.overlaps(player)) 
 		    {
-		        pen.setColor(Color.RED);
-		        player_hitbox.draw(pen);
-		        
-		        // Takes damage
+		    	 pen.setColor(Color.RED);
+			     player_hitbox.draw(pen);
 		    }
 	    }
 	    

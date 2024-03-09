@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/enemies/venustrap/attack"/>
+	<classpathentry kind="src" path="images/wanderer_mage/idle"/>
+	<classpathentry kind="src" path="images/wanderer_mage/walk"/>
+	<classpathentry kind="src" path="images/wanderer_mage/run"/>
+	<classpathentry kind="src" path="images/wanderer_mage/jump"/>
 	<classpathentry kind="src" path="images/enemies/venustrap/walk"/>
 	<classpathentry kind="src" path="images/enemies/venustrap/idle"/>
-	<classpathentry kind="src" path="images/wanderer_mage/run"/>
-	<classpathentry kind="src" path="images/wanderer_mage/idle"/>
 	<classpathentry kind="src" path="images/background"/>
-	<classpathentry kind="src" path="images/wanderer_mage/walk"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java [1.8.401.10]"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
