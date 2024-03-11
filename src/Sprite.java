@@ -134,22 +134,6 @@ public class Sprite extends Rect {
 			
 		}
 		
-		public void ai_draw(Hitbox ai, Hitbox player,  Graphics pen) 
-		{
-			
-			if (ai.overlaps(player)){
-				pen.drawImage(animation[4].nextImage(), x, y, w, h, null);
-			} else if(isLeftOf(player)) {
-				pen.drawImage(animation[3].nextImage(), x, y, w, h, null);
-			}else if (isRightOf(player)){
-				pen.drawImage(animation[2].nextImage(), x, y, w, h, null);
-			}else {
-				pen.drawImage(animation[ai_action].nextImage(), x, y, w, h, null);
-			}
-			
-//			pen.setColor(Color.RED);
-//			pen.drawRect(x, y, w, h);
-		}
 
 		public void chase(Sprite r, int dx) {
 			if(isLeftOf(r)) {

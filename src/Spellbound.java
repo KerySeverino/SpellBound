@@ -16,9 +16,11 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	
 	//AI Enemy
 	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
+	int [] venustrap_count = {4, 4, 6, 6, 6, 6};
+	int [] venustrap_duration = {10, 10, 10, 10, 6, 6};
 	
 	Hitbox venustrap_hitbox = new Hitbox(500, 716, 128, 128);
-	Sprite venustrap = new Sprite("venustrap", venustrap_pose, 500, 716, 128, 128, 4, 10);
+	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 500, 716, 128, 128, venustrap_count, venustrap_duration);
 	
 	//Boundaries
 	Rect top_wall = new Rect(0, -50, 1500, 50);
@@ -139,7 +141,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    pen.drawImage(forest, 0, -280, 1920, 1200, null);
 	   
 	    player.draw(pen);
-	    venustrap.ai_draw(venustrap_hitbox, player_hitbox, pen);
+	    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
