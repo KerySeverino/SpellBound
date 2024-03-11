@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 
 public class Hitbox extends Rect{
 	public Hitbox(int x, int y, int w, int h) {
@@ -11,5 +12,12 @@ public class Hitbox extends Rect{
 		y = r.y;
 	}
 	
+	public void player_track(Rect r) 
+	
+	{
+		x = r.x + 20;
+		y = r.y;
+	}
+
 	
 }

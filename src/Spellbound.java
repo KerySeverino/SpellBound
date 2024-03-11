@@ -3,16 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Spellbound extends Applet implements Runnable, KeyListener
-{
-	
+{	
 	//Background
 	Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
-	
-	//PLAYER
-	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun"};
-	
-	Hitbox player_hitbox = new Hitbox(50, 744, 100, 100);
-	Sprite player = new Sprite("wm", player_pose, 50, 744, 100, 100, 7, 8);
 	
 	//AI Enemy
 	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
@@ -21,6 +14,21 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	
 	Hitbox venustrap_hitbox = new Hitbox(500, 716, 128, 128);
 	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 500, 716, 128, 128, venustrap_count, venustrap_duration);
+	
+	//AI Enemy
+	String[] scorpion_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
+	int [] scorpion_count = {4, 4, 4, 4, 4, 4};
+	int [] scorpion_duration = {10, 10, 10, 10, 6, 6};
+		
+	Hitbox scorpion_hitbox = new Hitbox(300, 716, 48, 48);
+	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 300, 798, 48, 48, scorpion_count, scorpion_duration);
+		
+	//PLAYER
+	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun"};
+		
+	Hitbox player_hitbox = new Hitbox(50, 744, 50, 100);
+	Sprite player = new Sprite("wm", player_pose, 50, 744, 100, 100, 7, 8);
+	Health_UI health = new Health_UI(player_hitbox);
 	
 	//Boundaries
 	Rect top_wall = new Rect(0, -50, 1500, 50);
@@ -68,50 +76,18 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			{
 				player.runRT(4);
 			}
-//			
-//			
-//			//Prevents the player from going left to the screen
-//			if( player.overlaps(left_wall))
-//			{
-//				if( player.cameFromLeftOf(left_wall))
-//				{
-//					 player.pushbackLeftFrom(left_wall);
-//				}
-//				
-//				if( player.cameFromRightOf(left_wall))
-//				{
-//					 player.pushbackRightFrom(left_wall);
-//				}
-//			}
-//			
-//			//Prevents the player from going down the screen
-//			if( player.overlaps(floor))
-//			{
-//				if( player.cameFromAbove(floor))
-//				{
-//					 player.pushbackUpFrom(floor);
-//				}
-//				
-//				if( player.cameFromBelow(floor))
-//				{
-//					 player.pushbackDownFrom(floor);
-//				}
-//
-//				if( player.cameFromLeftOf(floor))
-//				{
-//					 player.pushbackLeftFrom(floor);
-//				}
-//				
-//				if( player.cameFromRightOf(floor))
-//				{
-//					 player.pushbackRightFrom(floor);
-//				}
-//			}
-				
-			//AI
+		
+			//AI_Control
 			venustrap_hitbox.track(venustrap);
-			venustrap.chase(player, 3);
-			player_hitbox.track(player);
+			venustrap.chase(player_hitbox, 3);
+			
+			scorpion_hitbox.track(scorpion);
+			scorpion.evade(player_hitbox, 2);
+			
+			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 400;
+			
+			//PLAYER
+			player_hitbox.player_track(player);
 			
 			repaint();
 			
@@ -140,8 +116,13 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    // Sets background image
 	    pen.drawImage(forest, 0, -280, 1920, 1200, null);
 	   
+	    //PLAYER
 	    player.draw(pen);
+	    health.draw(pen, player_hitbox, venustrap_hitbox);
+	    
+	    //	AI
 	    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
+	    scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
@@ -159,9 +140,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		    // Sets the colors for AI_enemies_hitbox
 		    pen.setColor(Color.RED);
 		    venustrap_hitbox.draw(pen);
+		    scorpion_hitbox.draw(pen);
 	
 		    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
 		    if (venustrap.overlaps(player)) 
+		    {
+		    	 pen.setColor(Color.RED);
+			     player_hitbox.draw(pen);
+		    }
+		    
+		    if (scorpion.overlaps(player)) 
 		    {
 		    	 pen.setColor(Color.RED);
 			     player_hitbox.draw(pen);

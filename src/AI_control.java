@@ -2,13 +2,8 @@ import java.awt.Graphics;
 
 public class AI_control extends Rect{
 	
-//	public AI_control(int x, int y, int w, int h) {
-//		super(x, y, w, h);
-//	}
-//	
 	Animation [] animation;
 	boolean moving = false;
-	
 	int direction = 1; // 0 = left, 1 = right
 	
 	public AI_control(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
@@ -20,7 +15,7 @@ public class AI_control extends Rect{
 		for(int i = 0; i < animation.length; i++)
 		{
 			animation[i] = new Animation(name + "_" + pose[i], count[i], duration[i]);
-			//Debugging check
+			//Debugging:
 			//System.out.println(name + "_" + pose[i]);
 		}
 	}
@@ -42,13 +37,6 @@ public class AI_control extends Rect{
 			pen.drawImage(animation[5].nextImage(), x, y, w, h, null);	
 		}
 		
-		
-//		} else if(isLeftOf(player)) {
-//			pen.drawImage(animation[3].nextImage(), x, y, w, h, null);
-//		}else if (isRightOf(player)){
-//			pen.drawImage(animation[2].nextImage(), x, y, w, h, null);
-//		}
-//		pen.drawRect(x, y, w, h);
 	}
 	
 	public void chase(Rect r, int dx)
@@ -83,13 +71,6 @@ public class AI_control extends Rect{
 		//if(isAbove(r))    moveUP(dx); 
 		//if(isBelow(r))    moveDN(dx); 
 	}
-	
-//	public void track(Rect r) 
-//	
-//	{
-//		x = r.x + 50;
-//		y = r.y + 100;
-//	}
 	
 	public boolean isLeftOf(Rect r)
 	{

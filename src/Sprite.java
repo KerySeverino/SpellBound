@@ -23,7 +23,7 @@ public class Sprite extends Rect {
 			{
 				animation[i] = new Animation(name + "_" + pose[i], count, duration);
 				//Debugging check
-				System.out.println(name + "_" + pose[i]);
+				//System.out.println(name + "_" + pose[i]);
 			}
 		}
 		
