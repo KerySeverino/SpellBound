@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Sprite extends Rect {
@@ -12,7 +11,6 @@ public class Sprite extends Rect {
 		
 		int ai_action = 0;
 		boolean chasing = false;
-		
 		public Sprite(String name, String[] pose, int x, int y, int w, int h, int count, int duration) 
 		{
 			super(x, y, w, h);
@@ -124,13 +122,10 @@ public class Sprite extends Rect {
 				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
 			}else if(!player_moving && !player_lookingLeft){
 				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
-			}else {
+			}else{
 				pen.drawImage(animation[player_action].nextImage(), x, y, w, h, null);
 				player_moving = false;
 			}
-			
-//			pen.setColor(Color.GREEN);
-//			pen.drawRect(x, y, w, h);
 			
 		}
 		

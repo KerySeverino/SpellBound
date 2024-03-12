@@ -17,18 +17,18 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	
 	//AI Enemy
 	String[] scorpion_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
-	int [] scorpion_count = {4, 4, 4, 4, 4, 4};
-	int [] scorpion_duration = {10, 10, 10, 10, 6, 6};
+	int [] scorpion_count = {4, 4, 4, 4, 4, 4, 4};
+	int [] scorpion_duration = {10, 10, 10, 10, 6, 6, 15};
 		
 	Hitbox scorpion_hitbox = new Hitbox(300, 716, 48, 48);
 	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 300, 798, 48, 48, scorpion_count, scorpion_duration);
 		
 	//PLAYER
-	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun"};
+	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "RTdeath"};
 		
 	Hitbox player_hitbox = new Hitbox(50, 744, 50, 100);
 	Sprite player = new Sprite("wm", player_pose, 50, 744, 100, 100, 7, 8);
-	Health_UI health = new Health_UI(player_hitbox);
+	Health_UI health = new Health_UI(20, 50,256,40);
 	
 	//Boundaries
 	Rect top_wall = new Rect(0, -50, 1500, 50);
@@ -46,7 +46,6 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	Image offScreenImg;
 	Graphics offScreenPen;
 	
-	
 	public void run()
 	{
 		// Game Loop
@@ -58,33 +57,35 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 //			}
 
 			//Walking
-			if(LT_Pressed)
+			if(LT_Pressed && health.playerHealth > 0)
 			{
 				player.walkLT(2);
+				System.out.println(health.playerHealth);
+				
 			}
-			if(RT_Pressed)
+			if(RT_Pressed && health.playerHealth > 0)
 			{
 				player.walkRT(2);
 			}
 			
 			//Running
-			if(LT_Pressed && shift_Pressed)
+			if(LT_Pressed && shift_Pressed && health.playerHealth > 0)
 			{
 				player.runLT(4);
 			}
-			if(RT_Pressed && shift_Pressed)
+			if(RT_Pressed && shift_Pressed && health.playerHealth > 0)
 			{
 				player.runRT(4);
 			}
 		
 			//AI_Control
 			venustrap_hitbox.track(venustrap);
-			venustrap.chase(player_hitbox, 3);
+			venustrap.chase(player_hitbox, 2);
 			
 			scorpion_hitbox.track(scorpion);
-			scorpion.evade(player_hitbox, 2);
+			scorpion.evade(player_hitbox, 1);
 			
-			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 400;
+			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 800;
 			
 			//PLAYER
 			player_hitbox.player_track(player);

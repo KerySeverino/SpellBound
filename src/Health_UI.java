@@ -2,32 +2,39 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-public class Health_UI{
+public class Health_UI extends Rect{
+	public int playerHealth = 6;
 	Image health;
-	int decreasedHealth = 1;
+	Image gameOver;
+	int decreasedHealthImg = 1;
 	int timeElapse = 0;
 	
 	
-	public Health_UI (Hitbox player)
+	public Health_UI (int x, int y, int w, int h)
 	{
+		super(x, y, w, h);
 		health = Toolkit.getDefaultToolkit().getImage("health_UI_0.png");
+		gameOver = Toolkit.getDefaultToolkit().getImage("GameOver.png");
 	}
 	
 	public void draw (Graphics pen, Hitbox player, Hitbox enemy) 
 	{
-		pen.drawImage(health, 20, 50,256,40, null);
-		if(enemy.overlaps(player) && timeElapse == 100 && decreasedHealth <= 6) {
-			health = Toolkit.getDefaultToolkit().getImage("health_UI_" + decreasedHealth + ".png");
-			decreasedHealth += 1;
+		pen.drawImage(health, x, y, w, h, null);
+		if(enemy.overlaps(player) && timeElapse == 100 && decreasedHealthImg <= 6) {
+			health = Toolkit.getDefaultToolkit().getImage("health_UI_" + decreasedHealthImg + ".png");
+			playerHealth -= 1;
+			decreasedHealthImg += 1;
 			timeElapse = 0;
-			// Debugger
-			//System.out.println("Hit");
+		}
+		
+		if(playerHealth == 0) {
+			pen.drawImage(gameOver, 710, 390, 500, 300, null);
 		}
 		
 		if(timeElapse < 100) {
 			timeElapse += 1;
 			//Debugger: How many frames have past
-			System.out.println(timeElapse);
+			//System.out.println(timeElapse);
 		}
 	}
 	

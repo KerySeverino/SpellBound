@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/wanderer_mage/death"/>
+	<classpathentry kind="src" path="images/GUI/GameOver_UI"/>
 	<classpathentry kind="src" path="images/GUI/Health_UI"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Attack"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Walk"/>
