@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Death"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Attack"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Walk"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Idle"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Hurt"/>
 	<classpathentry kind="src" path="images/wanderer_mage/death"/>
 	<classpathentry kind="src" path="images/GUI/GameOver_UI"/>
 	<classpathentry kind="src" path="images/GUI/Health_UI"/>
