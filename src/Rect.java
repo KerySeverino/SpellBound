@@ -60,7 +60,7 @@ public class Rect
 	
 	public boolean overlaps(Rect r)
 	{
-		return (x + w >= r.x      ) &&				
+		return ( x + w >= r.x   ) &&				
 			   (x     <= r.x + r.w) &&
 			   (y + h >= r.y      ) &&			   
 			   (y     <= r.y + r.h);

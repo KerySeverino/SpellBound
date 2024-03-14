@@ -41,7 +41,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	//PLAYER
 	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTdeath", "RTdeath"};
 	int [] player_count = {8, 8, 7, 7, 8, 8, 4, 4};
-	int [] player_duration = {10, 10, 10, 10, 6, 6, 10, 10};
+	int [] player_duration = {7, 7, 6, 6, 5, 5, 10, 10};
 			
 	
 	Hitbox player_hitbox = new Hitbox(50, 590, 50, 120);
@@ -100,7 +100,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		
 			//AI_Control
 			venustrap_hitbox.track(venustrap);
-			venustrap.chase(player_hitbox, 2);
+			//venustrap.chase(player_hitbox, 2);
 			
 			scorpion_hitbox.track(scorpion);
 			//scorpion.evade(player_hitbox, 4);
@@ -136,18 +136,18 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	{
 	    // Sets background image
 	    
-	    forest_11.draw(pen);
+	    forest_11.draw(pen);  
 	    forest_10.draw(pen);
-	    forest_9.draw(pen);
-	    forest_8.draw(pen);
-	    forest_7.draw(pen);
-	    forest_6.draw(pen);
-	    forest_5.draw(pen);
+	    forest_9.draw(pen); 
+	    forest_8.draw(pen); 
+	    forest_7.draw(pen); 
+	    forest_6.draw(pen); 
+	    forest_5.draw(pen);		
 	    forest_4.draw(pen);
-	    forest_3.draw(pen);
-	    forest_2.draw(pen);
-	    forest_1.draw(pen);
-	    forest_0.draw(pen);
+	    forest_3.draw(pen);	
+	    forest_2.draw(pen);	
+	    forest_1.draw(pen); 
+	    forest_0.draw(pen);  
 		   
 	   
 	    //PLAYER
@@ -155,8 +155,8 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    health.draw(pen, player_hitbox, venustrap_hitbox);
 	    
 	    //	AI
-	    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
-	    scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
+	    // venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
+	    // scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 

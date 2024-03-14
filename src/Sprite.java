@@ -13,7 +13,7 @@ public class Sprite extends Rect {
 		boolean chasing = false;
 		public Sprite(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
 		{
-			super(x, y, w, h);
+			super(x - Camera.x, y - Camera.y, w, h);
 			
 			animation = new Animation[pose.length];
 			
