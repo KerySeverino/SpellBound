@@ -41,11 +41,11 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	//PLAYER
 	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTdeath", "RTdeath"};
 	int [] player_count = {8, 8, 7, 7, 8, 8, 4, 4};
-	int [] player_duration = {10, 10, 10, 10, 10, 10, 10, 10};
+	int [] player_duration = {10, 10, 10, 10, 6, 6, 10, 10};
 			
 	
 	Hitbox player_hitbox = new Hitbox(50, 590, 50, 120);
-	Sprite player = new Sprite("wm", player_pose, 50, 395, 256, 256, player_count, player_duration);
+	Sprite player = new Sprite("wm", player_pose, 550, 395, 256, 256, player_count, player_duration);
 	Health_UI health = new Health_UI(20, 50,256,40);
 	
 	//Boundaries
@@ -78,54 +78,34 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			if(LT_Pressed && health.playerHealth > 0)
 			{
 				player.walkLT(2);
-				forest_11.moveLT(10);
-				forest_10.moveLT(10);
-				forest_9.moveLT(10);
-				forest_8.moveLT(10);
-				forest_7.moveLT(10);
-				forest_6.moveLT(10);
-				forest_5.moveLT(10);
-				forest_4.moveLT(10);
-				forest_3.moveLT(10);
-				forest_2.moveLT(10);
-				forest_1.moveLT(10);
-				forest_0.moveLT(10);
+				Camera.moveLT(2);
 			}
 			if(RT_Pressed && health.playerHealth > 0)
 			{
 				player.walkRT(2);
-				forest_11.moveRT(10);
-				forest_10.moveRT(10);
-				forest_9.moveRT(10);
-				forest_8.moveRT(10);
-				forest_7.moveRT(10);
-				forest_6.moveRT(10);
-				forest_5.moveRT(10);
-				forest_4.moveRT(10);
-				forest_3.moveRT(10);
-				forest_2.moveRT(10);
-				forest_1.moveRT(10);
-				forest_0.moveRT(10);
+				Camera.moveRT(2);
 			}
 			
 			//Running
 			if(LT_Pressed && shift_Pressed && health.playerHealth > 0)
 			{
 				player.runLT(4);
+				Camera.moveLT(4);
 			}
 			if(RT_Pressed && shift_Pressed && health.playerHealth > 0)
 			{
 				player.runRT(4);
+				Camera.moveRT(4);
 			}
 		
 			//AI_Control
 			venustrap_hitbox.track(venustrap);
-			//venustrap.chase(player_hitbox, 2);
+			venustrap.chase(player_hitbox, 2);
 			
 			scorpion_hitbox.track(scorpion);
-			//scorpion.evade(player_hitbox, 1);
+			//scorpion.evade(player_hitbox, 4);
 			
-			if(scorpion.x == 0 || scorpion.x == 1800) scorpion.x = 800;
+			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 800;
 			
 			//PLAYER
 			player_hitbox.player_track(player);
@@ -145,7 +125,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	//Updates the image on the screen
 	public void update(Graphics pen)
 	{
-		offScreenPen.clearRect(0, 0, 1800, 1000);
+		offScreenPen.clearRect(0, 0, 1920, 1000);
 		
 		paint(offScreenPen);
 		
@@ -175,8 +155,8 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    health.draw(pen, player_hitbox, venustrap_hitbox);
 	    
 	    //	AI
-	    //venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
-	    //scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
+	    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
+	    scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
@@ -218,7 +198,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	
 	public void init()
 	{
-		offScreenImg = createImage(1800, 1000);
+		offScreenImg = createImage(1920, 1000);
 		offScreenPen = offScreenImg.getGraphics();
 		
 		addKeyListener(this);

@@ -31,7 +31,7 @@ public class ImageLayer
 	public void draw(Graphics pen)
 	{
 		for(int i = 0; i < 13; i++) {
-			pen.drawImage(image, x + i * 1800, y, 1800, 1000, null);	
+			pen.drawImage(image, x + i * 1800 - Camera.x / z, y - Camera.y / z, 1800, 1000, null);	
 		}
 	}
 }

@@ -119,11 +119,11 @@ public class Sprite extends Rect {
 		public void draw(Graphics pen) 
 		{
 			if(!player_moving && player_lookingLeft) {
-				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[0].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 			}else if(!player_moving && !player_lookingLeft){
-				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[1].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 			}else{
-				pen.drawImage(animation[player_action].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[player_action].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 				player_moving = false;
 			}
 			
