@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Death"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Idle"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Death"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Hurt"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Walk"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Run"/>
+	<classpathentry kind="src" path="images/enemies/melee_golem/Death"/>
 	<classpathentry kind="src" path="images/enemies/melee_golem/Attack"/>
 	<classpathentry kind="src" path="images/enemies/melee_golem/Walk"/>
 	<classpathentry kind="src" path="images/enemies/melee_golem/Idle"/>
 	<classpathentry kind="src" path="images/enemies/melee_golem/Hurt"/>
-	<classpathentry kind="src" path="images/wanderer_mage/death"/>
 	<classpathentry kind="src" path="images/GUI/GameOver_UI"/>
 	<classpathentry kind="src" path="images/GUI/Health_UI"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Attack"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Walk"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Idle"/>
 	<classpathentry kind="src" path="images/enemies/venustrap/attack"/>
-	<classpathentry kind="src" path="images/wanderer_mage/idle"/>
-	<classpathentry kind="src" path="images/wanderer_mage/walk"/>
-	<classpathentry kind="src" path="images/wanderer_mage/run"/>
-	<classpathentry kind="src" path="images/wanderer_mage/jump"/>
 	<classpathentry kind="src" path="images/enemies/venustrap/walk"/>
 	<classpathentry kind="src" path="images/enemies/venustrap/idle"/>
 	<classpathentry kind="src" path="images/background"/>

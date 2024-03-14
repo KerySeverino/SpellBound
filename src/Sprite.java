@@ -11,7 +11,7 @@ public class Sprite extends Rect {
 		
 		int ai_action = 0;
 		boolean chasing = false;
-		public Sprite(String name, String[] pose, int x, int y, int w, int h, int count, int duration) 
+		public Sprite(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
 		{
 			super(x, y, w, h);
 			
@@ -19,7 +19,7 @@ public class Sprite extends Rect {
 			
 			for(int i = 0; i < animation.length; i++)
 			{
-				animation[i] = new Animation(name + "_" + pose[i], count, duration);
+				animation[i] = new Animation(name + "_" + pose[i], count[i], duration[i]);
 				//Debugging check
 				//System.out.println(name + "_" + pose[i]);
 			}

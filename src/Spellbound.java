@@ -24,10 +24,13 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 300, 798, 48, 48, scorpion_count, scorpion_duration);
 		
 	//PLAYER
-	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "RTdeath"};
-		
-	Hitbox player_hitbox = new Hitbox(50, 744, 50, 100);
-	Sprite player = new Sprite("wm", player_pose, 50, 744, 100, 100, 7, 8);
+	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTdeath", "RTdeath"};
+	int [] player_count = {8, 8, 7, 7, 8, 8, 4, 4};
+	int [] player_duration = {10, 10, 10, 10, 10, 10, 10, 10};
+			
+	
+	Hitbox player_hitbox = new Hitbox(50, 590, 50, 120);
+	Sprite player = new Sprite("wm", player_pose, 50, 590, 256, 256, player_count, player_duration);
 	Health_UI health = new Health_UI(20, 50,256,40);
 	
 	//Boundaries
@@ -60,8 +63,6 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			if(LT_Pressed && health.playerHealth > 0)
 			{
 				player.walkLT(2);
-				System.out.println(health.playerHealth);
-				
 			}
 			if(RT_Pressed && health.playerHealth > 0)
 			{
@@ -80,10 +81,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		
 			//AI_Control
 			venustrap_hitbox.track(venustrap);
-			venustrap.chase(player_hitbox, 2);
+			//venustrap.chase(player_hitbox, 2);
 			
 			scorpion_hitbox.track(scorpion);
-			scorpion.evade(player_hitbox, 1);
+			//scorpion.evade(player_hitbox, 1);
 			
 			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 800;
 			

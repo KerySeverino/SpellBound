@@ -15,8 +15,8 @@ public class Hitbox extends Rect{
 	public void player_track(Rect r) 
 	
 	{
-		x = r.x + 20;
-		y = r.y;
+		x = r.x + 102;
+		y = r.y + 132;
 	}
 
 	
