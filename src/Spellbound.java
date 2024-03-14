@@ -5,7 +5,22 @@ import java.awt.event.*;
 public class Spellbound extends Applet implements Runnable, KeyListener
 {	
 	//Background
-	Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
+	//Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
+	ImageLayer forest_11 = new ImageLayer("forest_11.png");
+	ImageLayer forest_10 = new ImageLayer("forest_10.png");
+	ImageLayer forest_9 = new ImageLayer("forest_9.png");
+	ImageLayer forest_8 = new ImageLayer("forest_8.png");
+	ImageLayer forest_7 = new ImageLayer("forest_7.png");
+	ImageLayer forest_6 = new ImageLayer("forest_6.png");
+	ImageLayer forest_5 = new ImageLayer("forest_5.png");
+	ImageLayer forest_4 = new ImageLayer("forest_4.png");
+	ImageLayer forest_3 = new ImageLayer("forest_3.png");
+	ImageLayer forest_2 = new ImageLayer("forest_2.png");
+	ImageLayer forest_1 = new ImageLayer("forest_1.png");
+	ImageLayer forest_0 = new ImageLayer("forest_0.png");
+
+	
+	
 	
 	//AI Enemy
 	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
@@ -116,7 +131,20 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	public void paint(Graphics pen)
 	{
 	    // Sets background image
-	    pen.drawImage(forest, 0, -280, 1920, 1200, null);
+	    
+	    forest_11.draw(pen);
+	    forest_10.draw(pen);
+	    forest_9.draw(pen);
+	    forest_8.draw(pen);
+	    forest_7.draw(pen);
+	    forest_6.draw(pen);
+	    forest_5.draw(pen);
+	    forest_4.draw(pen);
+	    forest_3.draw(pen);
+	    forest_2.draw(pen);
+	    forest_1.draw(pen);
+	    forest_0.draw(pen);
+		   
 	   
 	    //PLAYER
 	    player.draw(pen);
