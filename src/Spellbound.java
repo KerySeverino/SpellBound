@@ -74,7 +74,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 //				player.moveUP(2);
 //			}
 
-			//Walking
+			// Walking
 			if(LT_Pressed && health.playerHealth > 0)
 			{
 				player.walkLT(2);
@@ -86,7 +86,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 				Camera.moveRT(2);
 			}
 			
-			//Running
+			// Running
 			if(LT_Pressed && shift_Pressed && health.playerHealth > 0)
 			{
 				player.runLT(4);
@@ -98,16 +98,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 				Camera.moveRT(4);
 			}
 		
-			//AI_Control
+			// AI_Control 
 			venustrap_hitbox.track(venustrap);
-			//venustrap.chase(player_hitbox, 2);
+			venustrap.chase(player_hitbox, venustrap_hitbox, 2);
 			
 			scorpion_hitbox.track(scorpion);
 			//scorpion.evade(player_hitbox, 4);
 			
-			if(scorpion.x == 0 || scorpion.x == 1920) scorpion.x = 800;
+			if(scorpion.x == 0) scorpion.x = 800;
 			
-			//PLAYER
+			// PLAYER
 			player_hitbox.player_track(player);
 			
 			repaint();
@@ -122,7 +122,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	
 	
 	
-	//Updates the image on the screen
+	// Updates the image on the screen
 	public void update(Graphics pen)
 	{
 		offScreenPen.clearRect(0, 0, 1920, 1000);
@@ -134,8 +134,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 
 	public void paint(Graphics pen)
 	{
-	    // Sets background image
-	    
+	    // Sets background ImageLayers
 	    forest_11.draw(pen);  
 	    forest_10.draw(pen);
 	    forest_9.draw(pen); 
@@ -150,13 +149,13 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	    forest_0.draw(pen);  
 		   
 	   
-	    //PLAYER
+	    // PLAYER
 	    player.draw(pen);
 	    health.draw(pen, player_hitbox, venustrap_hitbox);
 	    
 	    //	AI
-	    // venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
-	    // scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
+	    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
+	    scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
 	    
 	    //Testing Tool
 	    if(testing_Tool == true) 
@@ -177,13 +176,13 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		    scorpion_hitbox.draw(pen);
 	
 		    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
-		    if (venustrap.overlaps(player)) 
+		    if (venustrap_hitbox.overlaps(player_hitbox)) 
 		    {
 		    	 pen.setColor(Color.RED);
 			     player_hitbox.draw(pen);
 		    }
 		    
-		    if (scorpion.overlaps(player)) 
+		    if (scorpion_hitbox.overlaps(player_hitbox)) 
 		    {
 		    	 pen.setColor(Color.RED);
 			     player_hitbox.draw(pen);

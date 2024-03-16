@@ -2,7 +2,7 @@
 
 public class Hitbox extends Rect{
 	public Hitbox(int x, int y, int w, int h) {
-		super(x - Camera.x, y - Camera.y, w, h);
+		super(x, y, w, h);
 	}
 	
 	public void track(Rect r) 

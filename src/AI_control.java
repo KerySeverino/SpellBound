@@ -5,6 +5,7 @@ public class AI_control extends Rect{
 	Animation [] animation;
 	boolean moving = false;
 	int direction = 1; // 0 = left, 1 = right
+	int distanceFromPlayer;
 	
 	public AI_control(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
 	{
@@ -20,7 +21,7 @@ public class AI_control extends Rect{
 		}
 	}
 	
-	public void ai_draw( Graphics pen, Hitbox ai, Hitbox player) 
+	public void ai_draw(Graphics pen, Rect ai, Rect player) 
 	{
 		
 		// Walk Left
@@ -39,19 +40,24 @@ public class AI_control extends Rect{
 		
 	}
 	
-	public void chase(Rect r, int dx)
+	public void chase(Rect player, Rect ai, int dx)
 	{
 		moving = true;
+		distanceFromPlayer = player.x - ai.x;
 		
-		if(isLeftOf(r)) {
-			direction = 1;
-			moveRT(dx); 
-		}
-		if(isRightOf(r)) {
-			direction = 0;
-			moveLT(dx); 
-		}
-		
+		if(distanceFromPlayer <= 350) 
+		{
+			if(isLeftOf(player)) {
+				direction = 1;
+				moveRT(dx); 
+			}
+			
+			if(isRightOf(player)) {
+				direction = 0;
+				moveLT(dx); 
+			}
+
+		}	
 		//if(isAbove(r))    moveDN(dx); 
 		//if(isBelow(r))    moveUP(dx); 
 	}
@@ -70,6 +76,19 @@ public class AI_control extends Rect{
 		
 		//if(isAbove(r))    moveUP(dx); 
 		//if(isBelow(r))    moveDN(dx); 
+	}
+	
+	
+	public void moveLT(int dx)
+	{
+		old_x = x;
+		x -= dx;		
+	}
+	
+	public void moveRT(int dx)
+	{
+		old_x = x;
+		x += dx;		
 	}
 	
 	public boolean isLeftOf(Rect r)

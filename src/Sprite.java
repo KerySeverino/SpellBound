@@ -13,7 +13,7 @@ public class Sprite extends Rect {
 		boolean chasing = false;
 		public Sprite(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
 		{
-			super(x - Camera.x, y - Camera.y, w, h);
+			super(x, y, w, h);
 			
 			animation = new Animation[pose.length];
 			
@@ -129,13 +129,11 @@ public class Sprite extends Rect {
 			
 		}
 		
-
 		public void chase(Sprite r, int dx) {
 			if(isLeftOf(r)) {
 				chasing = true;
 				ai_action = 1;
 				moveRT(dx); 
-				
 			}
 			if(isRightOf(r)) {
 				chasing = true;

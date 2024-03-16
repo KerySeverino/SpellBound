@@ -13,7 +13,7 @@ public class Rect
 	
 	public Rect(int x, int y, int w, int h)
 	{
-		this.x= x;
+		this.x = x;
 		this.y = y;
 		
 		this.w = w;
@@ -60,13 +60,13 @@ public class Rect
 	
 	public boolean overlaps(Rect r)
 	{
-		return ( x + w >= r.x   ) &&				
+		return (x + w >= r.x  	  ) &&				
 			   (x     <= r.x + r.w) &&
 			   (y + h >= r.y      ) &&			   
 			   (y     <= r.y + r.h);
 	}
 	
-	//Push the character out of terrain
+	// Push the character out of terrain
 	public void pushedOutOf(Rect r)
 	{
 		if(cameFromAbove(r)) 	pushbackUpFrom(r);
