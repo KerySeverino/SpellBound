@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Attack"/>
+	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Death"/>
+	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Hurt"/>
+	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Walk"/>
+	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Death"/>
+	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Hurt"/>
+	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Attack"/>
+	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Walk"/>
+	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Idle"/>
+	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Idle"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Idle"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Death"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
