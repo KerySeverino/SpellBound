@@ -13,14 +13,14 @@ public class Rect
 	
 	public Rect(int x, int y, int w, int h)
 	{
-		this.x = x;
-		this.y = y;
+		this.x = x - Camera.x;
+		this.y = y - Camera.y;
 		
 		this.w = w;
 		this.h = h;
 		
-		old_x = x;
-		old_y = y;
+		old_x = x - Camera.x;
+		old_y = y - Camera.y;
 	}
 	
 	public void moveLT(int dx)

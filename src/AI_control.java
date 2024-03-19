@@ -43,9 +43,9 @@ public class AI_control extends Rect{
 	public void chase(Rect player, Rect ai, int dx)
 	{
 		moving = true;
-		distanceFromPlayer = player.x - ai.x;
+		distanceFromPlayer =  Math.abs(player.x - ai.x);
 		
-		if(distanceFromPlayer <= 350) 
+		if(distanceFromPlayer <= 800) 
 		{
 			if(isLeftOf(player)) {
 				direction = 1;

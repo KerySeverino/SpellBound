@@ -25,7 +25,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 	//AI Enemy
 	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
 	int [] venustrap_count = {4, 4, 6, 6, 6, 6};
-	int [] venustrap_duration = {10, 10, 10, 10, 6, 6};
+	int [] venustrap_duration = {10, 10, 8, 8, 6, 6};
 	
 	Hitbox venustrap_hitbox = new Hitbox(500, 520, 128, 128);
 	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 500, 520, 128, 128, venustrap_count, venustrap_duration);
@@ -78,12 +78,12 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 			if(LT_Pressed && health.playerHealth > 0)
 			{
 				player.walkLT(2);
-				Camera.moveLT(2);
+				//Camera.moveLT(2);
 			}
 			if(RT_Pressed && health.playerHealth > 0)
 			{
 				player.walkRT(2);
-				Camera.moveRT(2);
+				//Camera.moveRT(2);
 			}
 			
 			// Running
@@ -100,7 +100,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener
 		
 			// AI_Control 
 			venustrap_hitbox.track(venustrap);
-			venustrap.chase(player_hitbox, venustrap_hitbox, 2);
+			venustrap.chase(player_hitbox, venustrap_hitbox, 3);
 			
 			scorpion_hitbox.track(scorpion);
 			//scorpion.evade(player_hitbox, 4);
