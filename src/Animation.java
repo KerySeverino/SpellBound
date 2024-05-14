@@ -14,6 +14,7 @@ public class Animation {
 		for(int i = 0; i < count; i++)
 		{
 			image[i] = Toolkit.getDefaultToolkit().getImage(name + "_" + i + ".png");
+			//System.out.print(image[i]);
 		}
 		
 		this.duration = duration; 

@@ -13,14 +13,14 @@ public class Rect
 	
 	public Rect(int x, int y, int w, int h)
 	{
-		this.x = x - Camera.x;
-		this.y = y - Camera.y;
+		this.x = x;
+		this.y = y;
 		
 		this.w = w;
 		this.h = h;
 		
-		old_x = x - Camera.x;
-		old_y = y - Camera.y;
+		old_x = x;
+		old_y = y;
 	}
 	
 	public void moveLT(int dx)
@@ -64,6 +64,14 @@ public class Rect
 			   (x     <= r.x + r.w) &&
 			   (y + h >= r.y      ) &&			   
 			   (y     <= r.y + r.h);
+	}
+	
+	public boolean contains(int mx, int my)
+	{
+		return (mx >= x    )  &&
+			   (mx <= x + w)  &&
+			   (my >= y    )  &&
+			   (my <= y + h);
 	}
 	
 	// Push the character out of terrain

@@ -26,16 +26,16 @@ public class AI_control extends Rect{
 		
 		// Walk Left
 		if (direction == 0 && !ai.overlaps(player)){
-			pen.drawImage(animation[2].nextImage(), x  - Camera.x, y - Camera.y, w, h, null);	
+			pen.drawImage(animation[2].nextImage(), x, y, w, h, null);	
 		// Walk Right
 		}else if (direction == 1 && !ai.overlaps(player)){
-			pen.drawImage(animation[3].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+			pen.drawImage(animation[3].nextImage(), x, y, w, h, null);	
 		// Attack Left
 		}else if (direction == 0 && ai.overlaps(player)){
-			pen.drawImage(animation[4].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+			pen.drawImage(animation[4].nextImage(), x, y, w, h, null);	
 		// Attack Right
 		}else if (direction == 1 && ai.overlaps(player)){
-			pen.drawImage(animation[5].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+			pen.drawImage(animation[5].nextImage(), x, y, w, h, null);	
 		}
 		
 	}

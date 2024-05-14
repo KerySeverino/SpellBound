@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Attack"/>
-	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Death"/>
-	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Hurt"/>
-	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Walk"/>
-	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Death"/>
-	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Hurt"/>
-	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Attack"/>
-	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Walk"/>
-	<classpathentry kind="src" path="images/enemies/bigbro_tribe/Idle"/>
-	<classpathentry kind="src" path="images/enemies/smallbro_tribe/Idle"/>
+	<classpathentry kind="src" path="images/GUI/Menu_Screen"/>
+	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Idle"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Death"/>
-	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Hurt"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Walk"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Run"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Death"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Attack"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Walk"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Idle"/>
-	<classpathentry kind="src" path="images/enemies/melee_golem/Hurt"/>
 	<classpathentry kind="src" path="images/GUI/GameOver_UI"/>
 	<classpathentry kind="src" path="images/GUI/Health_UI"/>
 	<classpathentry kind="src" path="images/enemies/scorpion/Attack"/>
