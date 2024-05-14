@@ -49,8 +49,13 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	
 	// GUI
 	UI health = new UI(20, 50,256,40);
+	
 	UI menu = new UI(0,0, 1800, 720);
+	UI death = new UI(0,0, 1800, 720);
+	
 	Rect start_button = new Rect(677, 495, 480, 60);
+	//Rect restart_button = new Rect(587, 481, 660, 60);
+	
 	Rect quit_button = new Rect(720, 654, 390, 60);
 	
 	// Boundaries
@@ -119,7 +124,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 				venustrap.chase(player_hitbox, venustrap_hitbox, 2);
 				
 				scorpion_hitbox.track(scorpion);
-				//scorpion.chase(player_hitbox, scorpion_hitbox,  3);
+				scorpion.chase(player_hitbox, scorpion_hitbox,  3);
 				
 				//if(scorpion.x == 400) scorpion.x = 0;
 				
@@ -140,25 +145,36 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
     @Override
     public void stop() {
         // Suspend execution
-        System.out.println("Applet stopped");
+        System.out.println("Applet game stopped");
         System.exit(0);
     }
 
 	public void paint(Graphics pen)
 	{
-		 //Menu screen
-		if(gameMenu == true) 
+		pen.setColor(Color.WHITE);
+		
+		 // Menu screen
+		if(health.playerHealth > 0 && gameMenu == true) 
 		{
+			
 		    menu.draw_menu(pen);
-		    
-		    // Checking border of the buttons
-		    pen.setColor(Color.WHITE);
 		    start_button.draw(pen);
 		    quit_button.draw(pen);
+		   
 		}
-	    
+		
+		// Death Screen
+		if(health.playerHealth == 0) {
+			 death.draw_gameover(pen);
+			 quit_button.set(727, 639, 390, 60);
+			 quit_button.draw(pen);
+			// restart_button.draw(pen);
+		}
+		
+		
+			
 		// Game start
-		if (gameMenu == false) 
+		if (health.playerHealth > 0 && gameMenu == false) 
 		{
 		    // Sets background ImageLayers
 		    forest_11.draw(pen);  
@@ -298,8 +314,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		int mX = e.getX();
 		int mY = e.getY();
 		
+		
 		//System.out.println("(" + mX + " , " + mY + ")");
 		
+		// Menu Screen
 		if(gameMenu == true) {
 			if (start_button.contains(mX, mY)) {
 				//Starts the game
@@ -307,8 +325,14 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			}
 			
 			if(quit_button.contains(mX, mY)) {
+				System.out.println("(" + mX + " , " + mY + ")");
 			    stop();
 			}
+		}
+		
+		// Death Menu Screen 
+		if(health.playerHealth == 0 && quit_button.contains(mX, mY)) {
+		    stop();
 		}
 		
 	}

@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 public class UI extends Rect{
 	public int playerHealth = 6;
 	Image health;
-	Image gameOver;
+	Image death_screen;
 	Image menu_screen;
 	int decreasedHealthImg = 1;
 	int timeElapse = 0;
@@ -16,8 +16,8 @@ public class UI extends Rect{
 	{
 		super(x, y, w, h);
 		health = Toolkit.getDefaultToolkit().getImage("health_UI_0.png");
-		gameOver = Toolkit.getDefaultToolkit().getImage("GameOver.png");
 		menu_screen = Toolkit.getDefaultToolkit().getImage("Menu_Screen.png");
+		death_screen = Toolkit.getDefaultToolkit().getImage("Death_Screen.png");
 	}
 	
 	
@@ -31,10 +31,6 @@ public class UI extends Rect{
 			timeElapse = 0;
 		}
 		
-		if(playerHealth == 0) {
-			pen.drawImage(gameOver, 500, 200, 500, 300, null);
-		}
-		
 		if(timeElapse < 45) {
 			timeElapse += 1;
 			//Debugger: How many frames have past
@@ -45,5 +41,11 @@ public class UI extends Rect{
 	public void draw_menu(Graphics pen) {
 		pen.drawImage(menu_screen, x, y, w, h, null);
 	}
+	
+	
+	public void draw_gameover(Graphics pen) {
+		pen.drawImage(death_screen, x, y, w, h, null);
+	}
+	
 	
 }

@@ -124,6 +124,13 @@ public class Rect
 	}
 	
 	
+	public void set(int x, int y, int w, int h) {
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+	}
+	
 	public void draw(Graphics pen)
 	{
 		pen.drawRect(x, y, w, h);
