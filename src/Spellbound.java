@@ -28,7 +28,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	int [] venustrap_duration = {10, 10, 8, 8, 6, 6};
 	
 	Hitbox venustrap_hitbox = new Hitbox(500, 520, 128, 128);
-	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 900, 520, 128, 128, venustrap_count, venustrap_duration);
+	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 900, 520, 128, 128, venustrap_count, venustrap_duration, 100);
 	
 	// AI Enemy
 	String[] scorpion_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
@@ -36,15 +36,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	int [] scorpion_duration = {10, 10, 10, 10, 6, 6, 15};
 		
 	Hitbox scorpion_hitbox = new Hitbox(300, 716, 48, 48);
-	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 700, 602, 48, 48, scorpion_count, scorpion_duration);
+	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 700, 602, 48, 48, scorpion_count, scorpion_duration, 50);
 		
-	// PLAYER
-	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTdeath", "RTdeath", "LTattack", "RTattack"};
-	int [] player_count = {8, 8, 7, 7, 8, 8, 4, 4, 7, 7};
-	int [] player_duration = {7, 7, 6, 6, 5, 5, 10, 10, 8, 8};
+	// PLAYER - Player Action#:	0		 1 			2 		3		  4		   5		 6			7			8
+	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTattack", "RTattack", "LThurt"};
+	int [] player_count = {8, 8, 7, 7, 8, 8, 7, 7, 4};
+	int [] player_duration = {7, 7, 6, 6, 5, 7, 7, 5, 10};
 			
 	
 	Hitbox player_hitbox = new Hitbox(50, 590, 50, 120);
+	Hitbox player_attack_hitbox = new Hitbox(50, 590, 170, 120);
 	Sprite player = new Sprite("wm", player_pose, 0, 395, 256, 256, player_count, player_duration);
 	
 	// GUI
@@ -121,15 +122,16 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			
 				// AI_Control 
 				venustrap_hitbox.track(venustrap);
-				venustrap.chase(player_hitbox, venustrap_hitbox, 2);
+				//venustrap.chase(player_hitbox, venustrap_hitbox, 2);
 				
 				scorpion_hitbox.track(scorpion);
-				scorpion.chase(player_hitbox, scorpion_hitbox,  3);
+				//scorpion.chase(player_hitbox, scorpion_hitbox,  3);
 				
 				//if(scorpion.x == 400) scorpion.x = 0;
 				
 				// PLAYER
 				player_hitbox.player_track(player);
+				player_attack_hitbox.player_track_attack(player, attack_Pressed);
 			}
 				
 			repaint();
@@ -209,6 +211,8 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			    // Sets the color to green for the player_hitbox
 			    pen.setColor(Color.GREEN);
 			    player_hitbox.draw(pen);
+			    
+			    player_attack_hitbox.draw(pen);
 		
 			    // Sets the colors for other elements to Default
 			    pen.setColor(Color.BLACK);
@@ -220,12 +224,26 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			    pen.setColor(Color.RED);
 			    venustrap_hitbox.draw(pen);
 			    scorpion_hitbox.draw(pen);
+			    
+			    // Sets Attack hitbox when colliding with enemies
+			   
+			    if(player_attack_hitbox.overlaps(scorpion)) {
+			    	 pen.setColor(Color.BLUE);
+			    	 player_attack_hitbox.draw(pen);
+			    	 scorpion.health -= 50;
+			    	 if(scorpion.health <= 0) {
+			    		 pen.setColor(Color.GREEN);
+					     scorpion_hitbox.draw(pen);
+			    	 }
+			    }
+			    
 		
 			    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
 			    if (venustrap_hitbox.overlaps(player_hitbox)) 
 			    {
 			    	 pen.setColor(Color.RED);
 				     player_hitbox.draw(pen);
+				     
 			    }
 			    
 			    if (scorpion_hitbox.overlaps(player_hitbox)) 
@@ -237,7 +255,6 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		    
 		    // Reset the color to default
 		    pen.setColor(Color.BLACK);
-		    
 		}
 	}
 
@@ -278,7 +295,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		
 		if (code == e.VK_J) {	  
 			attack_Pressed = true;
-			System.out.println("Attack");
+			player.getAttack(true);
 		}
 		
 		if (code == e.VK_SHIFT)  shift_Pressed = true;  
@@ -306,7 +323,10 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		if (code == e.VK_W)   UP_Pressed = false;  
 		if (code == e.VK_A)   LT_Pressed = false;  
 		if (code == e.VK_D)   RT_Pressed = false;
-		if (code == e.VK_J)	  attack_Pressed = false;
+		if (code == e.VK_J) {
+			attack_Pressed = false;
+			player.getAttack(false);
+		}
 		if (code == e.VK_SHIFT)  shift_Pressed = false;  
 	}
 
@@ -325,7 +345,7 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			}
 			
 			if(quit_button.contains(mX, mY)) {
-				System.out.println("(" + mX + " , " + mY + ")");
+				//System.out.println("(" + mX + " , " + mY + ")");
 			    stop();
 			}
 		}
@@ -343,8 +363,6 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	public void mouseExit(MouseEvent e) {}
 	public void mouseEntered(MouseEvent e) {}
 	public void keyTyped(KeyEvent e) {}
-
-
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {

@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="images/GUI/Menu_Screen"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Idle"/>
-	<classpathentry kind="src" path="images/wanderer_mage/Death"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Hurt"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Walk"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Run"/>

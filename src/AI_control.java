@@ -6,8 +6,9 @@ public class AI_control extends Rect{
 	boolean moving = false;
 	int direction = 1; // 0 = left, 1 = right
 	int distanceFromPlayer;
+	int health;
 	
-	public AI_control(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
+	public AI_control(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration, int health) 
 	{
 		super(x, y, w, h);
 		

@@ -7,6 +7,7 @@ public class Sprite extends Rect {
 		int player_action = 0;
 		boolean player_moving = false;
 		boolean player_lookingLeft = true;
+		boolean attack_Pressed;
 		
 		
 		int ai_action = 0;
@@ -35,6 +36,12 @@ public class Sprite extends Rect {
 			player_lookingLeft = true;
 			
 			x -= dx;	
+		}
+		
+		public boolean getAttack(boolean attack) {
+			attack_Pressed = attack;
+			System.out.print(attack_Pressed);
+			return attack_Pressed;
 		}
 		
 
@@ -118,11 +125,16 @@ public class Sprite extends Rect {
 		
 		public void draw(Graphics pen) 
 		{
-			if(!player_moving && player_lookingLeft) {
+			if(player_lookingLeft && attack_Pressed && !player_moving){
+				pen.drawImage(animation[6].nextImage(), x, y, w, h, null);
+			}else if(!player_lookingLeft && attack_Pressed && !player_moving){
+				pen.drawImage(animation[7].nextImage(), x, y, w, h, null);
+			}else if(!player_moving && player_lookingLeft) {
 				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
 			}else if(!player_moving && !player_lookingLeft){
 				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
 			}else{
+				System.out.println(player_action);
 				pen.drawImage(animation[player_action].nextImage(), x, y, w, h, null);
 				player_moving = false;
 			}
