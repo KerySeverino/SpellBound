@@ -1,8 +1,7 @@
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Spellbound extends Applet implements Runnable, KeyListener, MouseListener
+public class Spellbound extends SpellboundBase
 {	
 	// Background
 	// Image forest = Toolkit.getDefaultToolkit().getImage("forest_completed.png");
@@ -20,15 +19,14 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	ImageLayer forest_0 = new ImageLayer("forest_0.png", 0, -270, 1);
 
 	
-	
-	
 	// AI Enemy
 	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
 	int [] venustrap_count = {4, 4, 6, 6, 6, 6};
 	int [] venustrap_duration = {10, 10, 8, 8, 6, 6};
 	
 	Hitbox venustrap_hitbox = new Hitbox(500, 520, 128, 128);
-	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 900, 520, 128, 128, venustrap_count, venustrap_duration, 100);
+	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 900, 520, 128, 128, venustrap_count, venustrap_duration);
+	
 	
 	// AI Enemy
 	String[] scorpion_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
@@ -36,51 +34,18 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 	int [] scorpion_duration = {10, 10, 10, 10, 6, 6, 15};
 		
 	Hitbox scorpion_hitbox = new Hitbox(300, 716, 48, 48);
-	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 700, 602, 48, 48, scorpion_count, scorpion_duration, 50);
+	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 700, 619, 48, 48, scorpion_count, scorpion_duration);
 		
-	// PLAYER - Player Action#:	0		 1 			2 		3		  4		   5		 6			7			8
-	String[] player_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTrun", "RTrun", "LTattack", "RTattack", "LThurt"};
-	int [] player_count = {8, 8, 7, 7, 8, 8, 7, 7, 4};
-	int [] player_duration = {7, 7, 6, 6, 5, 7, 7, 5, 10};
-			
-	
-	Hitbox player_hitbox = new Hitbox(50, 590, 50, 120);
-	Hitbox player_attack_hitbox = new Hitbox(50, 590, 170, 120);
-	Sprite player = new Sprite("wm", player_pose, 0, 395, 256, 256, player_count, player_duration);
-	
-	// GUI
-	UI health = new UI(20, 50,256,40);
-	
-	UI menu = new UI(0,0, 1800, 720);
-	UI death = new UI(0,0, 1800, 720);
-	
-	Rect start_button = new Rect(677, 495, 480, 60);
-	//Rect restart_button = new Rect(587, 481, 660, 60);
-	
-	Rect quit_button = new Rect(720, 654, 390, 60);
-	
-	// Boundaries
-	Rect top_wall = new Rect(0, -50, 1800, 50);
-	Rect left_wall = new Rect(-50, 0, 50, 800);
-	Rect floor = new Rect(0, 650, 1800, 85);
-	
 
-	//  Menu Controls
-	boolean gameMenu = true;
+	// PLAYER
+	String[] redhood_pose = {"idleLT", "idleRT", "runLT", "runRT", "jumpLT", "jumpRT"};
+	int [] redhood_frames_count = {18, 18, 24, 24, 19, 19};
+	int [] redhood_frames_duration = {5,5, 2, 2, 3, 3};
+	Hitbox redhood_hitbox = new Hitbox(50, 590, 100, 89);
 	
-	// PLayer Controls
-	boolean UP_Pressed = false;
-	boolean LT_Pressed = false;
-	boolean RT_Pressed = false;
-	boolean shift_Pressed = false;
-	boolean attack_Pressed = false;
+	//Hitbox player_attack_hitbox = new Hitbox(50, 590, 170, 120);
+	Sprite player = new Sprite("redhood", redhood_pose, 400, 460, 195, 256, redhood_frames_count, redhood_frames_duration);
 	
-	// Testing Controls
-	boolean testing_Tool = false;
-	
-	//Paints Image to offScreenImg to reduce flicker
-	Image offScreenImg;
-	Graphics offScreenPen;
 	
 	public void run()
 	{
@@ -88,50 +53,69 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		// Game Loop
 		while(true)
 		{
-			//if(UP_Pressed)
-			//{
-			//player.moveUP(2);
-			//}
-
-			
+		
 			if (gameMenu == false) 
 			{
 				// Walking
-				if(LT_Pressed && health.playerHealth > 0)
-				{
-					player.walkLT(2);
+				if(LT_Pressed && health.playerHealth > 0) {
+					if(!shift_Pressed) {
+						player.runLT(2);
+					}else {
+						player.runLT(4);
+					}
 					//Camera.moveLT(2);
 				}
-				if(RT_Pressed && health.playerHealth > 0)
-				{
-					player.walkRT(2);
+			
+				if(RT_Pressed && health.playerHealth > 0) {
+					
+					if(!shift_Pressed) {
+						player.runRT(2);
+					}else {
+						player.runRT(4);
+					}
 					//Camera.moveRT(2);
 				}
 				
-				// Running
-				if(LT_Pressed && shift_Pressed && health.playerHealth > 0)
-				{
-					player.runLT(4);
-					//Camera.moveLT(4);
+				if(UP_Pressed && health.playerHealth > 0) {
+					if (player.overlaps(floor)){
+						player.jump(12);
+					}
 				}
-				if(RT_Pressed && shift_Pressed && health.playerHealth > 0)
+					
+				
+				player.move();
+				
+				if(redhood_hitbox.overlaps(floor))
 				{
-					player.runRT(4);
-					//Camera.moveRT(4);
+					//soldier.vx = 0;
+					player.vy = 0;
+
+					player.pushedOutOf(floor);
+					
 				}
-			
+				
+
+//				if(redhood_hitbox.overlaps(left_wall))
+//				{
+//					//soldier.vx = 0;
+//					player.vx = 0;
+//
+//					player.pushedOutOf(left_wall);
+//					
+//				}
+
 				// AI_Control 
 				venustrap_hitbox.track(venustrap);
-				//venustrap.chase(player_hitbox, venustrap_hitbox, 2);
+				venustrap.chase(redhood_hitbox, venustrap_hitbox, 2);
 				
 				scorpion_hitbox.track(scorpion);
-				//scorpion.chase(player_hitbox, scorpion_hitbox,  3);
+				scorpion.chase(redhood_hitbox, scorpion_hitbox,  3);
 				
 				//if(scorpion.x == 400) scorpion.x = 0;
 				
 				// PLAYER
-				player_hitbox.player_track(player);
-				player_attack_hitbox.player_track_attack(player, attack_Pressed);
+				redhood_hitbox.player_track(player);
+				//player_attack_hitbox.player_track_attack(player, attack_Pressed);
 			}
 				
 			repaint();
@@ -197,25 +181,26 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		    player.draw(pen);
 		    
 		    //Health_UI
-		    health.health_UI_draw(pen, player_hitbox, venustrap_hitbox);
-		    health.health_UI_draw(pen, player_hitbox, scorpion_hitbox);
+		    health.health_UI_draw(pen, redhood_hitbox, venustrap_hitbox);
+		    health.health_UI_draw(pen, redhood_hitbox, scorpion_hitbox);
 		    
 		    
 		    //	AI
-		    venustrap.ai_draw(pen, venustrap_hitbox, player_hitbox);
-		    scorpion.ai_draw(pen, scorpion_hitbox, player_hitbox);
+		   venustrap.ai_draw(pen, venustrap_hitbox, redhood_hitbox);
+		   scorpion.ai_draw(pen, scorpion_hitbox, redhood_hitbox);
 		    
 		    //Testing Tool
 		    if(testing_Tool == true) 
 		    {
 			    // Sets the color to green for the player_hitbox
 			    pen.setColor(Color.GREEN);
-			    player_hitbox.draw(pen);
 			    
-			    player_attack_hitbox.draw(pen);
+			    redhood_hitbox.draw(pen);
+			    
+			   // player_attack_hitbox.draw(pen);
 		
 			    // Sets the colors for other elements to Default
-			    pen.setColor(Color.BLACK);
+			    pen.setColor(Color.RED);
 			    floor.draw(pen);
 			    top_wall.draw(pen);
 			    left_wall.draw(pen);
@@ -227,29 +212,29 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 			    
 			    // Sets Attack hitbox when colliding with enemies
 			   
-			    if(player_attack_hitbox.overlaps(scorpion)) {
-			    	 pen.setColor(Color.BLUE);
-			    	 player_attack_hitbox.draw(pen);
-			    	 scorpion.health -= 50;
-			    	 if(scorpion.health <= 0) {
-			    		 pen.setColor(Color.GREEN);
-					     scorpion_hitbox.draw(pen);
-			    	 }
-			    }
-			    
+//			    if(player_attack_hitbox.overlaps(scorpion)) {
+//			    	 pen.setColor(Color.BLUE);
+//			    	 player_attack_hitbox.draw(pen);
+//			    	 scorpion.health -= 50;
+//			    	 if(scorpion.health <= 0) {
+//			    		 pen.setColor(Color.GREEN);
+//					     scorpion_hitbox.draw(pen);
+//			    	 }
+//			    }
+//			    
 		
 			    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
-			    if (venustrap_hitbox.overlaps(player_hitbox)) 
+			    if (venustrap_hitbox.overlaps(redhood_hitbox)) 
 			    {
 			    	 pen.setColor(Color.RED);
-				     player_hitbox.draw(pen);
+			    	 redhood_hitbox.draw(pen);
 				     
 			    }
 			    
-			    if (scorpion_hitbox.overlaps(player_hitbox)) 
+			    if (scorpion_hitbox.overlaps(redhood_hitbox)) 
 			    {
 			    	 pen.setColor(Color.RED);
-				     player_hitbox.draw(pen);
+			    	 redhood_hitbox.draw(pen);
 			    }
 		    }
 		    
@@ -258,116 +243,11 @@ public class Spellbound extends Applet implements Runnable, KeyListener, MouseLi
 		}
 	}
 
-	
-	// Updates the image on the screen
-	public void update(Graphics pen)
-	{
-		offScreenPen.clearRect(0, 0, 1920, 1000);
-		
-		paint(offScreenPen);
-		
-		pen.drawImage(offScreenImg, 0, 0, null);
-	}
-	
-	
-	public void init()
-	{
-		offScreenImg = createImage(1920, 1000);
-		offScreenPen = offScreenImg.getGraphics();
-		
-		addKeyListener(this);
-		requestFocus();
-		
-		addMouseListener(this);
-
-		Thread t = new Thread(this);
-
-		t.start();
-	}
-	
-	public void keyPressed(KeyEvent e)
-	{		
-		int code = e.getKeyCode();
-		
-		if (code == e.VK_W)   UP_Pressed = true;   
-		if (code == e.VK_A)   LT_Pressed = true;  
-		if (code == e.VK_D)   RT_Pressed = true; 
-		
-		if (code == e.VK_J) {	  
-			attack_Pressed = true;
-			player.getAttack(true);
-		}
-		
-		if (code == e.VK_SHIFT)  shift_Pressed = true;  
-		
-		// Menu Controls / Pause game
-		if (code == e.VK_M) gameMenu = true;
-		
-		
-		//Testing tool shows hitboxes and terrain boundaries
-		if (code == e.VK_T ) 
-		{
-			if (testing_Tool == true) {
-				testing_Tool = false; 
-			}else {
-				testing_Tool = true; 
-			}
-			
-		}
-	}
-	
-	public void keyReleased(KeyEvent e)
-	{
-		int code = e.getKeyCode();
-
-		if (code == e.VK_W)   UP_Pressed = false;  
-		if (code == e.VK_A)   LT_Pressed = false;  
-		if (code == e.VK_D)   RT_Pressed = false;
-		if (code == e.VK_J) {
-			attack_Pressed = false;
-			player.getAttack(false);
-		}
-		if (code == e.VK_SHIFT)  shift_Pressed = false;  
-	}
-
-	public void mousePressed(MouseEvent e) {
-		int mX = e.getX();
-		int mY = e.getY();
-		
-		
-		//System.out.println("(" + mX + " , " + mY + ")");
-		
-		// Menu Screen
-		if(gameMenu == true) {
-			if (start_button.contains(mX, mY)) {
-				//Starts the game
-				gameMenu = false;
-			}
-			
-			if(quit_button.contains(mX, mY)) {
-				//System.out.println("(" + mX + " , " + mY + ")");
-			    stop();
-			}
-		}
-		
-		// Death Menu Screen 
-		if(health.playerHealth == 0 && quit_button.contains(mX, mY)) {
-		    stop();
-		}
-		
-	}
-	public void mouseReleased(MouseEvent e) {}
-	
-	// No used for now
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseExit(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void keyTyped(KeyEvent e) {}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent arg0) {}
+
 	
 }

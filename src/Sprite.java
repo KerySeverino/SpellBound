@@ -27,90 +27,52 @@ public class Sprite extends Rect {
 		}
 		
 		
-		public void walkLT(int dx)
+		public void runLT(int dx)
 		{
-			old_x = x;
-			player_action = 2;
+			super.moveLT(dx);
 			
+			player_action = 2;
 			player_moving = true;
 			player_lookingLeft = true;
 			
-			x -= dx;	
+			//x -= dx;	
 		}
 		
-		public boolean getAttack(boolean attack) {
-			attack_Pressed = attack;
-			System.out.print(attack_Pressed);
-			return attack_Pressed;
-		}
-		
-
-		public void walkRT(int dx)
+		public void runRT(int dx)
 		{
-			old_x = x;
+			super.moveRT(dx);
 			
 			player_action = 3;
 			player_moving = true;
 			player_lookingLeft = false;
 			
-			x += dx;
+			//x += dx;
 			
 			//Debugging check
 			//System.out.println("Right");
 		}
 		
-		public void runLT(int dx)
+		public void jump(int dy)
 		{
-			old_x = x;
-			player_action = 4;
-			
+			super.moveUP(dy);
+			if(player_lookingLeft) {
+				player_action = 4;
+			}else {
+				player_action = 5;
+			}
 			player_moving = true;
-			player_lookingLeft = true;
 			
-			x -= dx;	
 		}
-		
-
-		public void runRT(int dx)
-		{
-			old_x = x;
-			
-			player_action = 5;
-			player_moving = true;
-			player_lookingLeft = false;
-			
-			x += dx;
-			
-			//Debugging check
-			//dSystem.out.println("Run");
-		}
-		
-	
-//		public void moveUP(int dy)
-//		{
-//			old_y = y;
-//			
-//			action = 4;
-//			moving = true;
-//			
-//			y -= dy;
-//		}
 //		
-		//Push the character out of terrain
-		public void pushedOutOf(Rect r)
-		{
-			if(cameFromLeftOf(r))   pushbackLeftFrom(r);		
-			if(cameFromRightOf(r))	pushbackRightFrom(r);
-		}
+//		public void move() {
+//			super.move();
+//		}
 		
-		public boolean cameFromLeftOf(Rect r)
-		{
-			return old_x + w < r.x;
-		}
 		
-		public boolean cameFromRightOf(Rect r)
-		{
-			return r.x + r.w < old_x;
+		public boolean getAttack(boolean attack) {
+			attack_Pressed = attack;
+			System.out.print(attack_Pressed);
+			return attack_Pressed;
 		}
 		
 		public void pushbackLeftFrom(Rect r)
@@ -125,19 +87,16 @@ public class Sprite extends Rect {
 		
 		public void draw(Graphics pen) 
 		{
-			if(player_lookingLeft && attack_Pressed && !player_moving){
-				pen.drawImage(animation[6].nextImage(), x, y, w, h, null);
-			}else if(!player_lookingLeft && attack_Pressed && !player_moving){
-				pen.drawImage(animation[7].nextImage(), x, y, w, h, null);
-			}else if(!player_moving && player_lookingLeft) {
-				pen.drawImage(animation[0].nextImage(), x, y, w, h, null);
+			
+			if(!player_moving && player_lookingLeft){
+				pen.drawImage(animation[0].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 			}else if(!player_moving && !player_lookingLeft){
-				pen.drawImage(animation[1].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[1].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 			}else{
-				System.out.println(player_action);
-				pen.drawImage(animation[player_action].nextImage(), x, y, w, h, null);
+				pen.drawImage(animation[player_action].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
 				player_moving = false;
 			}
+			
 			
 		}
 		

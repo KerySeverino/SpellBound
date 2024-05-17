@@ -15,8 +15,8 @@ public class Hitbox extends Rect{
 	public void player_track(Rect r) 
 	
 	{
-		x = r.x + 102;
-		y = r.y + 132;
+		x = r.x + 40;
+		y = r.y + 100;
 	}
 
 	public void player_track_attack(Rect r, boolean attack) 
@@ -29,11 +29,6 @@ public class Hitbox extends Rect{
 			x = r.x + 50;
 			y = r.y + 500;
 		}
-		
-//		else {
-//			x = r.x + 50;
-//			y = r.y + 132;
-//		}
 		
 	}
 

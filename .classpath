@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="images/RedHood/Jump"/>
+	<classpathentry kind="src" path="images/RedHood/Idle"/>
+	<classpathentry kind="src" path="images/RedHood/Run"/>
 	<classpathentry kind="src" path="images/GUI/Menu_Screen"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Attack"/>
 	<classpathentry kind="src" path="images/wanderer_mage/Idle"/>
