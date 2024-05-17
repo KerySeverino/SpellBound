@@ -18,41 +18,19 @@ public class Spellbound extends SpellboundBase
 	ImageLayer forest_1 = new ImageLayer("forest_1.png", 0, -270, 1);
 	ImageLayer forest_0 = new ImageLayer("forest_0.png", 0, -270, 1);
 
-//	
-//	// AI Enemy
-//	String[] venustrap_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
-//	int [] venustrap_count = {4, 4, 6, 6, 6, 6};
-//	int [] venustrap_duration = {10, 10, 8, 8, 6, 6};
-//	
-//	Hitbox venustrap_hitbox = new Hitbox(500, 520, 128, 128);
-//	AI_control venustrap = new AI_control("venustrap", venustrap_pose, 900, 520, 128, 128, venustrap_count, venustrap_duration);
-//	
-//	
-//	// AI Enemy
-//	String[] scorpion_pose = {"LTidle", "RTidle", "LTwalk", "RTwalk", "LTattack", "RTattack"};
-//	int [] scorpion_count = {4, 4, 4, 4, 4, 4, 4};
-//	int [] scorpion_duration = {10, 10, 10, 10, 6, 6, 15};
-//		
-//	Hitbox scorpion_hitbox = new Hitbox(300, 716, 48, 48);
-//	AI_control scorpion = new AI_control("scorpion", scorpion_pose, 700, 619, 48, 48, scorpion_count, scorpion_duration);
-//		
 	// AI Enemy
-	String[] werewolf_pose = {"idleLT", "idleRT", "walkLT", "walkRT", "runLT", "runRT", "attackLT", "attackRT"};
-	int [] werewolf_count = {8, 8, 11, 11,9, 9, 6, 6};
-	int [] werewolf_duration = {10, 10, 10, 10, 5, 5, 6, 6};
+	String[] werewolf_pose = {"idleLT", "idleRT", "walkLT", "walkRT", "runLT", "runRT", "attackLT", "attackRT", "runAttackLT", "runAttackRT"};
+	int [] werewolf_count = {8, 8, 11, 11,9, 9, 6, 6, 6, 6};
+	int [] werewolf_duration = {10, 10, 10, 10, 5, 5, 6, 6, 4, 4};
 		
 	Hitbox werewolf_hitbox = new Hitbox(300, 716, 210, 100);
-	AI_control werewolf = new AI_control("wolf", werewolf_pose, 700, 450, 200, 200, werewolf_count, werewolf_duration);
-		
-
+	AI_control werewolf = new AI_control("wolf", werewolf_pose, 1400, 460, 200, 200, werewolf_count, werewolf_duration);
 	
 	// PLAYER
 	String[] redhood_pose = {"idleLT", "idleRT", "runLT", "runRT", "jumpLT", "jumpRT"};
 	int [] redhood_frames_count = {18, 18, 24, 24, 19, 19};
 	int [] redhood_frames_duration = {5,5, 2, 2, 3, 3};
 	Hitbox redhood_hitbox = new Hitbox(50, 590, 100, 89);
-	
-	//Hitbox player_attack_hitbox = new Hitbox(50, 590, 170, 120);
 	Sprite player = new Sprite("redhood", redhood_pose, 400, 460, 195, 256, redhood_frames_count, redhood_frames_duration);
 	
 	
@@ -65,9 +43,10 @@ public class Spellbound extends SpellboundBase
 		
 			if (gameMenu == false && gameWon == false) 
 			{
-				if(health.playerHealth > 0) {
+				// Only starts if were wolf is not idle
+				if(health.playerHealth > 0 && werewolf.idleWolf == false) {
 					timer += 1;
-					if(timer >= 1000) {
+					if(timer >= 2000) {
 						gameWon = true;
 					}
 				}
@@ -98,7 +77,7 @@ public class Spellbound extends SpellboundBase
 				
 				if(UP_Pressed && health.playerHealth > 0) {
 					if (player.overlaps(floor)){
-						player.jump(15);
+						player.jump(5);
 					}
 				}
 					
@@ -107,37 +86,26 @@ public class Spellbound extends SpellboundBase
 				
 				if(redhood_hitbox.overlaps(floor))
 				{
-					//soldier.vx = 0;
 					player.vy = 0;
 
 					player.pushedOutOf(floor);
 					
 				}
 				
+				if(redhood_hitbox.overlaps(left_wall))
+				{
+					player.vx = 0;
 
-//				if(redhood_hitbox.overlaps(left_wall))
-//				{
-//					//soldier.vx = 0;
-//					player.vx = 0;
-//
-//					player.pushedOutOf(left_wall);
-//					
-//				}
-
-				// AI_Control 
-				//venustrap_hitbox.track(venustrap);
-				//venustrap.chase(redhood_hitbox, venustrap_hitbox, 4);
-				
-				//scorpion_hitbox.track(scorpion);
-				//scorpion.chase(redhood_hitbox, scorpion_hitbox,  5);
-				
+					player.pushbackRightFrom(left_wall);
+					
+				}
 				
 				werewolf_hitbox.wolf_track(werewolf);
 				
-				if(werewolf.distanceFromPlayer <= 400) {
+				if(werewolf.distanceFromPlayer <= 200) {
 					werewolf_Speed = 3;
-				}else if(werewolf.distanceFromPlayer > 400){
-					werewolf_Speed = 4;
+				}else if(werewolf.distanceFromPlayer > 500){
+					werewolf_Speed = 5;
 				}
 				
 				werewolf.chase(redhood_hitbox, werewolf_hitbox,  werewolf_Speed);
@@ -146,8 +114,8 @@ public class Spellbound extends SpellboundBase
 				// PLAYER
 				redhood_hitbox.player_track(player);
 				
-				System.out.println(timer);
-				System.out.println(gameWon);
+				//System.out.println(timer);
+			//	System.out.println(gameWon);
 				
 			}
 				
@@ -170,11 +138,7 @@ public class Spellbound extends SpellboundBase
 
 	public void paint(Graphics pen)
 	{
-		pen.setColor(Color.WHITE);
-		
-		
-		
-		
+
 		 // Menu screen
 		if(health.playerHealth > 0 && gameMenu == true && gameWon == false) 
 		{
@@ -214,16 +178,11 @@ public class Spellbound extends SpellboundBase
 		    // PLAYER
 		    player.draw(pen);
 		    
-		    //Health_UI
-		   // health.health_UI_draw(pen, redhood_hitbox, venustrap_hitbox);
-		   // health.health_UI_draw(pen, redhood_hitbox, scorpion_hitbox);
+		    // HEALTH BAR
 		    health.health_UI_draw(pen, redhood_hitbox, werewolf_hitbox);
 		    
 		    
-		    
-		    //	AI
-		   //venustrap.ai_draw(pen, venustrap_hitbox, redhood_hitbox);
-		  // scorpion.ai_draw(pen, scorpion_hitbox, redhood_hitbox);
+		   // AI
 		   werewolf.ai_draw(pen, werewolf_hitbox, redhood_hitbox);
 		    
 		    //Testing Tool
@@ -234,8 +193,6 @@ public class Spellbound extends SpellboundBase
 			    
 			    redhood_hitbox.draw(pen);
 			    
-			   // player_attack_hitbox.draw(pen);
-		
 			    // Sets the colors for other elements to Default
 			    pen.setColor(Color.RED);
 			    floor.draw(pen);
@@ -244,41 +201,14 @@ public class Spellbound extends SpellboundBase
 		
 			    // Sets the colors for AI_enemies_hitbox
 			    pen.setColor(Color.RED);
-			   // venustrap_hitbox.draw(pen);
-			  //  scorpion_hitbox.draw(pen);
 			    werewolf_hitbox.draw(pen);
 			    
-			    // Sets Attack hitbox when colliding with enemies
-			   
-//			    if(player_attack_hitbox.overlaps(scorpion)) {
-//			    	 pen.setColor(Color.BLUE);
-//			    	 player_attack_hitbox.draw(pen);
-//			    	 scorpion.health -= 50;
-//			    	 if(scorpion.health <= 0) {
-//			    		 pen.setColor(Color.GREEN);
-//					     scorpion_hitbox.draw(pen);
-//			    	 }
-//			    }
-//			    
 			    if (werewolf_hitbox.overlaps(redhood_hitbox)){
 				    	 pen.setColor(Color.RED);
 				    	 redhood_hitbox.draw(pen);
 					     
 				}
 		
-			    // Sets the color to red if the player_hitbox overlaps with the AI_enemies_hitbox
-//			    if (venustrap_hitbox.overlaps(redhood_hitbox)) 
-//			    {
-//			    	 pen.setColor(Color.RED);
-//			    	 redhood_hitbox.draw(pen);
-//				     
-//			    }
-//			    
-//			    if (scorpion_hitbox.overlaps(redhood_hitbox)) 
-//			    {
-//			    	 pen.setColor(Color.RED);
-//			    	 redhood_hitbox.draw(pen);
-//			    }
 		    }
 		    
 		    // Reset the color to default

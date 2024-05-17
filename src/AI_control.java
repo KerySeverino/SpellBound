@@ -6,6 +6,8 @@ public class AI_control extends Rect{
 	boolean moving = false;
 	int direction = 1; // 0 = left, 1 = right
 	int distanceFromPlayer;
+	boolean idleWolf;
+	
 	
 	public AI_control(String name, String[] pose, int x, int y, int w, int h, int[] count, int[] duration) 
 	{
@@ -24,30 +26,38 @@ public class AI_control extends Rect{
 	
 	public void ai_draw(Graphics pen, Rect ai, Rect player) 
 	{
-//		else if(direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 500) {
-//			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
-//		}else {
-//			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
-//		}
-		// Walk Left
-		if (direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 400){
-			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		
+		// Beginning Idle
+		if(distanceFromPlayer >= 800) {
+			pen.drawImage(animation[0].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+			idleWolf = true;
+		// Walk Left	
+		}else if (direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 150){
+			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+			idleWolf = false;
 		// Walk Right
-		}else if (direction == 1 && !ai.overlaps(player) && distanceFromPlayer <= 400){
-			pen.drawImage(animation[3].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		}else if (direction == 1 && !ai.overlaps(player) && distanceFromPlayer <= 150){
+			pen.drawImage(animation[3].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+			idleWolf = false;
 		// Run Left
 		}else if(direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 800) {
 			pen.drawImage(animation[4].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
-		// RunRight
+			idleWolf = false;
+		// Run Right
 		}else if(direction == 1 && !ai.overlaps(player) && distanceFromPlayer <= 800) {
-			pen.drawImage(animation[5].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
-		}
+			pen.drawImage(animation[5].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+			idleWolf = false;
 		// Attack Left
-		else if (direction == 0 && ai.overlaps(player)){
-			pen.drawImage(animation[6].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		}else if (direction == 0 && ai.overlaps(player) && distanceFromPlayer <= 150){
+			pen.drawImage(animation[6].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+			idleWolf = false;
 		// Attack Right
-		}else if (direction == 1 && ai.overlaps(player)){
+		}else if (direction == 1 && ai.overlaps(player) && distanceFromPlayer <= 150){
 			pen.drawImage(animation[7].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+			idleWolf = false;
+		}else if(direction == 1 && ai.overlaps(player) && distanceFromPlayer >= 200) {
+			pen.drawImage(animation[9].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+			idleWolf = false;
 		}
 		
 	}
@@ -68,10 +78,8 @@ public class AI_control extends Rect{
 				direction = 0;
 				moveLT(dx); 
 			}
-
 		}	
-		//if(isAbove(r))    moveDN(dx); 
-		//if(isBelow(r))    moveUP(dx); 
+		
 	}
 	
 	public void evade(Rect r, int dx)
@@ -86,8 +94,6 @@ public class AI_control extends Rect{
 			moveRT(dx); 
 		}
 		
-		//if(isAbove(r))    moveUP(dx); 
-		//if(isBelow(r))    moveDN(dx); 
 	}
 	
 	
