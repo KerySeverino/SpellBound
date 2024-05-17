@@ -62,6 +62,25 @@ public class AI_control extends Rect{
 		
 	}
 	
+	
+	public void deer_ai_draw(Graphics pen, Rect ai, Rect player) 
+	{
+		
+		// Beginning Idle
+		
+		
+		// Run Left
+		if (direction == 0 && distanceFromPlayer <= 150){
+				pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+		// Run Right
+		}else if (direction == 1 && distanceFromPlayer <= 150){
+				pen.drawImage(animation[3].nextImage(), x - Camera.x, y - Camera.y, w, h, null);
+		}else {
+			pen.drawImage(animation[0].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		}
+		
+	}
+	
 	public void chase(Rect player, Rect ai, int dx)
 	{
 		moving = true;
@@ -85,11 +104,11 @@ public class AI_control extends Rect{
 	public void evade(Rect r, int dx)
 	{
 		moving = true;
-		if(isLeftOf(r)) {
+		if(isLeftOf(r) && distanceFromPlayer <= 1000) {
 			direction = 0;
 			moveLT(dx); 
 		}
-		if(isRightOf(r)) {
+		if(isRightOf(r) && distanceFromPlayer <= 1000) {
 			direction = 1;
 			moveRT(dx); 
 		}

@@ -1,4 +1,5 @@
 import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -6,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.net.URL;
 
 public abstract class SpellboundBase extends  Applet implements Runnable, KeyListener, MouseListener, MouseMotionListener{
 
@@ -13,11 +15,15 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 	public int timer = 0;
 	int werewolf_Speed;
 	
+	// Music
+	//AudioClip music;
+	
 	// GUI
 	UI health = new UI(20, 50,256,40);
 	UI menu = new UI(0,0, 1800, 720);
 	UI death = new UI(0,0, 1800, 720);
 	UI win = new UI(0,0, 1800, 720);
+
 	
 	
 	Rect start_button = new Rect(677, 495, 480, 60);
@@ -25,7 +31,7 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 	Rect quit_button = new Rect(720, 654, 390, 60);
 	
 	// Boundaries
-	Rect top_wall = new Rect(0, -50, 1800, 50);
+	//Rect top_wall = new Rect(0, -50, 1800, 50);
 	Rect left_wall = new Rect(500, 0, 50, 800);
 	Rect floor = new Rect(0, 635, 18000, 85);
 	
@@ -61,6 +67,14 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 		
 		public void init()
 		{
+			
+//			try {
+//	            music = getAudioClip(getCodeBase(), "Battle-Furious.wav");
+//	           // System.out.print("Sucess");
+//	        } catch (Exception e) {
+//	            e.printStackTrace();
+//	        }
+			
 			offScreenImg = createImage(1920, 1000);
 			offScreenPen = offScreenImg.getGraphics();
 			

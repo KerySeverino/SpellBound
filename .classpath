@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="images/UI/Menu_Screen"/>
-	<classpathentry kind="src" path="images/UI/Health_UI"/>
-	<classpathentry kind="src" path="images/UI/Win_Screen"/>
-	<classpathentry kind="src" path="images/UI/GameOver_UI"/>
-	<classpathentry kind="src" path="images/enemies/Werewolf/Run"/>
-	<classpathentry kind="src" path="images/enemies/Werewolf/Attack"/>
-	<classpathentry kind="src" path="images/enemies/Werewolf/Idle"/>
-	<classpathentry kind="src" path="images/enemies/Werewolf/Walk"/>
-	<classpathentry kind="src" path="images/RedHood/Jump"/>
-	<classpathentry kind="src" path="images/RedHood/Idle"/>
-	<classpathentry kind="src" path="images/RedHood/Run"/>
-	<classpathentry kind="src" path="images/background"/>
+	<classpathentry kind="src" path="Assets/Deer"/>
+	<classpathentry kind="src" path="Assets/Music"/>
+	<classpathentry kind="src" path="Assets/UI/GameOver_UI"/>
+	<classpathentry kind="src" path="Assets/enemies/Werewolf/Run"/>
+	<classpathentry kind="src" path="Assets/enemies/Werewolf/Attack"/>
+	<classpathentry kind="src" path="Assets/RedHood/Idle"/>
+	<classpathentry kind="src" path="Assets/UI/Menu_Screen"/>
+	<classpathentry kind="src" path="Assets/UI/Win_Screen"/>
+	<classpathentry kind="src" path="Assets/RedHood/Jump"/>
+	<classpathentry kind="src" path="Assets/RedHood/Run"/>
+	<classpathentry kind="src" path="Assets/enemies/Werewolf/Idle"/>
+	<classpathentry kind="src" path="Assets/background"/>
+	<classpathentry kind="src" path="Assets/enemies/Werewolf/Walk"/>
+	<classpathentry kind="src" path="Assets/UI/Health_UI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java [1.8.401.10]"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

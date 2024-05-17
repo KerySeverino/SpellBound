@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Spellbound extends SpellboundBase
 {	
@@ -18,6 +19,18 @@ public class Spellbound extends SpellboundBase
 	ImageLayer forest_1 = new ImageLayer("forest_1.png", 0, -270, 1);
 	ImageLayer forest_0 = new ImageLayer("forest_0.png", 0, -270, 1);
 
+	
+	// AI SCARED
+	String[] deer_pose = {"idleLT", "idleRT", "runLT", "runRT"};
+	int [] deer_count = {10, 10, 5, 5};
+	int [] deer_duration = {6, 6, 10, 10};
+		
+	AI_control deer = new AI_control("deer", deer_pose, 1700, 560, 90, 90, deer_count, deer_duration);
+	AI_control deer2 = new AI_control("deer", deer_pose, 2500, 560, 90, 90, deer_count, deer_duration);
+	AI_control deer3 = new AI_control("deer", deer_pose, 2900, 560, 90, 90, deer_count, deer_duration);
+	
+	
+	
 	// AI Enemy
 	String[] werewolf_pose = {"idleLT", "idleRT", "walkLT", "walkRT", "runLT", "runRT", "attackLT", "attackRT", "runAttackLT", "runAttackRT"};
 	int [] werewolf_count = {8, 8, 11, 11,9, 9, 6, 6, 6, 6};
@@ -43,6 +56,12 @@ public class Spellbound extends SpellboundBase
 		
 			if (gameMenu == false && gameWon == false) 
 			{
+//				 if (music != null) {
+//			            //System.out.println("Playing music");
+//			            music.play();
+//				 }
+				 
+				Camera.setInPlace(player.x - 450);
 				// Only starts if were wolf is not idle
 				if(health.playerHealth > 0 && werewolf.idleWolf == false) {
 					timer += 1;
@@ -55,10 +74,10 @@ public class Spellbound extends SpellboundBase
 				if(LT_Pressed && !RT_Pressed && health.playerHealth > 0) {
 					if(!shift_Pressed) {
 						player.runLT(2);
-						Camera.moveLT(2);
+						Camera.moveLT(5);
 					}else {
-						player.runLT(4);
-						Camera.moveLT(4);
+						player.runLT(5);
+						Camera.moveLT(5);
 					}
 				
 				}
@@ -67,17 +86,17 @@ public class Spellbound extends SpellboundBase
 					
 					if(!shift_Pressed) {
 						player.runRT(2);
-						Camera.moveRT(2);
+						Camera.moveRT(5);
 					}else {
-						player.runRT(4);
-						Camera.moveRT(4);
+						player.runRT(5);
+						Camera.moveRT(5);
 					}
 					
 				}
 				
 				if(UP_Pressed && health.playerHealth > 0) {
 					if (player.overlaps(floor)){
-						player.jump(5);
+						player.jump(6);
 					}
 				}
 					
@@ -95,20 +114,23 @@ public class Spellbound extends SpellboundBase
 				if(redhood_hitbox.overlaps(left_wall))
 				{
 					player.vx = 0;
-
 					player.pushbackRightFrom(left_wall);
-					
 				}
+				
+				
 				
 				werewolf_hitbox.wolf_track(werewolf);
 				
 				if(werewolf.distanceFromPlayer <= 200) {
 					werewolf_Speed = 3;
 				}else if(werewolf.distanceFromPlayer > 500){
-					werewolf_Speed = 5;
+					werewolf_Speed = 8;
 				}
 				
 				werewolf.chase(redhood_hitbox, werewolf_hitbox,  werewolf_Speed);
+				deer.evade(player, 3);
+				deer2.evade(player, 3);
+				deer3.evade(player, 4);
 				
 				
 				// PLAYER
@@ -169,6 +191,12 @@ public class Spellbound extends SpellboundBase
 		    forest_6.draw(pen); 
 		    forest_5.draw(pen);		
 		    forest_4.draw(pen);
+		    
+		    // SCENE
+		    deer.deer_ai_draw(pen, deer, redhood_hitbox);
+		    deer2.deer_ai_draw(pen, deer2, redhood_hitbox);
+		    deer3.deer_ai_draw(pen, deer3, redhood_hitbox);
+		    
 		    forest_3.draw(pen);	
 		    forest_2.draw(pen);	
 		    forest_1.draw(pen); 
@@ -184,7 +212,7 @@ public class Spellbound extends SpellboundBase
 		    
 		   // AI
 		   werewolf.ai_draw(pen, werewolf_hitbox, redhood_hitbox);
-		    
+		  
 		    //Testing Tool
 		    if(testing_Tool == true) 
 		    {
@@ -194,10 +222,11 @@ public class Spellbound extends SpellboundBase
 			    redhood_hitbox.draw(pen);
 			    
 			    // Sets the colors for other elements to Default
-			    pen.setColor(Color.RED);
+			    pen.setColor(Color.BLUE);
 			    floor.draw(pen);
-			    top_wall.draw(pen);
+			    //top_wall.draw(pen);
 			    left_wall.draw(pen);
+			    //right_wall.draw(pen);
 		
 			    // Sets the colors for AI_enemies_hitbox
 			    pen.setColor(Color.RED);

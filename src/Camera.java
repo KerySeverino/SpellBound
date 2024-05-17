@@ -23,5 +23,13 @@ public class Camera {
 	{
 		y += dy;
 	}
+	
+	public static void setInPlace(int dx)
+	{
+		x = dx;
+	}
+	
+	
+	
 
 }

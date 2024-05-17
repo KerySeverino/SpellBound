@@ -76,13 +76,14 @@ public class Sprite extends Rect {
 		
 		public void pushbackLeftFrom(Rect r)
 		{
-			x = r.x - 13;
+			super.pushbackLeftFrom(r);
+			x = r.x - 15;
 		}
 		
 		public void pushbackRightFrom(Rect r)
 		{
 			super.pushbackRightFrom(r);
-			x = r.x+ 15;
+			x = r.x + 15;
 		}
 		
 		public void draw(Graphics pen) 

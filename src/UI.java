@@ -26,14 +26,14 @@ public class UI extends Rect{
 	public void health_UI_draw (Graphics pen, Hitbox player, Hitbox enemy) 
 	{
 		pen.drawImage(health, x, y, w, h, null);
-		if(enemy.overlaps(player) && timeElapse == 45 && decreasedHealthImg <= 6) {
+		if(enemy.overlaps(player) && timeElapse == 70 && decreasedHealthImg <= 6) {
 			health = Toolkit.getDefaultToolkit().getImage("health_UI_" + decreasedHealthImg + ".png");
 			playerHealth -= 1;
 			decreasedHealthImg += 1;
 			timeElapse = 0;
 		}
 		
-		if(timeElapse < 45) {
+		if(timeElapse < 70) {
 			timeElapse += 1;
 			//Debugger: How many frames have past
 			//System.out.println(timeElapse);
