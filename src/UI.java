@@ -7,6 +7,7 @@ public class UI extends Rect{
 	Image health;
 	Image death_screen;
 	Image menu_screen;
+	Image win_screen;
 	int decreasedHealthImg = 1;
 	int timeElapse = 0;
 	
@@ -18,6 +19,7 @@ public class UI extends Rect{
 		health = Toolkit.getDefaultToolkit().getImage("health_UI_0.png");
 		menu_screen = Toolkit.getDefaultToolkit().getImage("Menu_Screen.png");
 		death_screen = Toolkit.getDefaultToolkit().getImage("Death_Screen.png");
+		win_screen = Toolkit.getDefaultToolkit().getImage("win.png");
 	}
 	
 	
@@ -38,8 +40,11 @@ public class UI extends Rect{
 		}
 	}
 	
+	public void draw_win(Graphics pen) {
+		pen.drawImage(win_screen, x, y, w, h, null);
+	}
 	public void draw_menu(Graphics pen) {
-		pen.drawImage(menu_screen, x, y, w, h, null);
+		pen.drawImage(menu_screen, x,  y, w, h, null);
 	}
 	
 	

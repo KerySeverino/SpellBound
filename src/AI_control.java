@@ -24,19 +24,30 @@ public class AI_control extends Rect{
 	
 	public void ai_draw(Graphics pen, Rect ai, Rect player) 
 	{
-		
+//		else if(direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 500) {
+//			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+//		}else {
+//			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+//		}
 		// Walk Left
-		if (direction == 0 && !ai.overlaps(player)){
-			pen.drawImage(animation[2].nextImage(), x, y, w, h, null);	
+		if (direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 400){
+			pen.drawImage(animation[2].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
 		// Walk Right
-		}else if (direction == 1 && !ai.overlaps(player)){
-			pen.drawImage(animation[3].nextImage(), x, y, w, h, null);	
+		}else if (direction == 1 && !ai.overlaps(player) && distanceFromPlayer <= 400){
+			pen.drawImage(animation[3].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		// Run Left
+		}else if(direction == 0 && !ai.overlaps(player) && distanceFromPlayer <= 800) {
+			pen.drawImage(animation[4].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		// RunRight
+		}else if(direction == 1 && !ai.overlaps(player) && distanceFromPlayer <= 800) {
+			pen.drawImage(animation[5].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
+		}
 		// Attack Left
-		}else if (direction == 0 && ai.overlaps(player)){
-			pen.drawImage(animation[4].nextImage(), x, y, w, h, null);	
+		else if (direction == 0 && ai.overlaps(player)){
+			pen.drawImage(animation[6].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
 		// Attack Right
 		}else if (direction == 1 && ai.overlaps(player)){
-			pen.drawImage(animation[5].nextImage(), x, y, w, h, null);	
+			pen.drawImage(animation[7].nextImage(), x - Camera.x, y - Camera.y, w, h, null);	
 		}
 		
 	}

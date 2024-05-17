@@ -68,10 +68,9 @@ public class Sprite extends Rect {
 //			super.move();
 //		}
 		
-		
+//		
 		public boolean getAttack(boolean attack) {
 			attack_Pressed = attack;
-			System.out.print(attack_Pressed);
 			return attack_Pressed;
 		}
 		
@@ -87,6 +86,7 @@ public class Sprite extends Rect {
 		
 		public void draw(Graphics pen) 
 		{
+		
 			
 			if(!player_moving && player_lookingLeft){
 				pen.drawImage(animation[0].nextImage(), x - Camera.x, y - Camera.y, w, h, null);

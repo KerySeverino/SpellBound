@@ -10,10 +10,14 @@ import java.awt.event.MouseMotionListener;
 public abstract class SpellboundBase extends  Applet implements Runnable, KeyListener, MouseListener, MouseMotionListener{
 
 	
+	int timer = 0;
+	int werewolf_Speed;
+	
 	// GUI
 	UI health = new UI(20, 50,256,40);
 	UI menu = new UI(0,0, 1800, 720);
 	UI death = new UI(0,0, 1800, 720);
+	UI win = new UI(0,0, 1800, 720);
 	
 	
 	Rect start_button = new Rect(677, 495, 480, 60);
@@ -23,10 +27,11 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 	// Boundaries
 	Rect top_wall = new Rect(0, -50, 1800, 50);
 	Rect left_wall = new Rect(-50, 0, 50, 800);
-	Rect floor = new Rect(0, 650, 1800, 85);
+	Rect floor = new Rect(0, 650, 18000, 85);
 	
 	//  Menu Controls
 	boolean gameMenu = true;
+	boolean gameWon = false;
 	
 	// PLayer Controls
 	boolean UP_Pressed = false;
@@ -78,10 +83,9 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 			if (code == e.VK_A)   LT_Pressed = true;  
 			if (code == e.VK_D)   RT_Pressed = true; 
 			
-//			if (code == e.VK_J) {	  
-//				attack_Pressed = true;
-//				player.getAttack(true);
-//			}
+			if (code == e.VK_J) {	  
+				attack_Pressed = true;
+			}
 //			
 			if (code == e.VK_SHIFT)  shift_Pressed = true;  
 			
@@ -108,10 +112,10 @@ public abstract class SpellboundBase extends  Applet implements Runnable, KeyLis
 			if (code == e.VK_W)   UP_Pressed = false;  
 			if (code == e.VK_A)   LT_Pressed = false;  
 			if (code == e.VK_D)   RT_Pressed = false;
-//			if (code == e.VK_J) {
-//				attack_Pressed = false;
-//				player.getAttack(false);
-//			}
+			if (code == e.VK_J) {
+				attack_Pressed = false;
+			//	player.getAttack(false);
+		}
 			if (code == e.VK_SHIFT)  shift_Pressed = false;  
 		}
 

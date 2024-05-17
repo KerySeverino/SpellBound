@@ -18,6 +18,15 @@ public class Hitbox extends Rect{
 		x = r.x + 40;
 		y = r.y + 100;
 	}
+	
+	
+	public void wolf_track(Rect r) 
+	
+	{
+		x = r.x;
+		y = r.y + 100;
+	}
+	
 
 	public void player_track_attack(Rect r, boolean attack) 
 	
